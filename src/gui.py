@@ -1,4 +1,5 @@
 import tkinter as tk
+import datetime
 
 class HardcodedTVShow:
     def title(self):
@@ -15,12 +16,20 @@ class HardcodedPost:
     def sentiment(self):
         return 1
     
+class HardcodedBadPost:
+    def author(self):
+        return "Verónica Null"
+    def content(self):
+        return "El programa de Null es un desastre. " + \
+                "No hay palabras para describir a Null."
+    def sentiment(self):
+        return -1    
 
 show = HardcodedTVShow()
 show2 = HardcodedTVShow()
 myShows = [show,show2]
 post = HardcodedPost()
-post2 = HardcodedPost()
+post2 = HardcodedBadPost()
 myPostList = [post,post2]
 
 ###########################################################
@@ -62,32 +71,37 @@ class ShowSelector():
 class ShowWindow():
     def __init__(self,master, aShow):
         show = aShow
-        widget = tk.Toplevel(master, padx=150, pady=50)
+        self.widget = tk.Toplevel(master, padx=150, pady=50)
         title = "Opciones para: " + show.title()
-        widget.title(title)
-        ratingDateLabel = tk.Label(widget, text="Fecha de Rating (Formato DD/MM/AAAA)")
+        self.widget.title(title)
+        ratingDateLabel = tk.Label(self.widget, text="Fecha de Rating (Formato DD/MM/AAAA)")
         ratingDateLabel.pack()
-        ratingDate = tk.Entry(widget, bd=2)
+        ratingDate = tk.Entry(self.widget, bd=2)
+        ratingDate.insert(0,"11/11/2011")
         ratingDate.pack()
-        ratingButton = tk.Button(widget, text="VER RATING",
-                                 command=lambda: RatingWindow(widget,aShow))
+        ratingButton = tk.Button(self.widget, text="VER RATING",
+                                 command=lambda: self.createRatingWindow(show,ratingDate))
         ratingButton.pack(side=tk.TOP)
-        popularityStartDateLabel = tk.Label(widget, text="Popularidad desde (Formato DD/MM/AAAA)")
+        popularityStartDateLabel = tk.Label(self.widget, text="Popularidad desde (Formato DD/MM/AAAA)")
         popularityStartDateLabel.pack()
-        popularityStartDate = tk.Entry(widget, bd=2)
+        popularityStartDate = tk.Entry(self.widget, bd=2)
         popularityStartDate.pack()
-        popularityEndDateLabel = tk.Label(widget, text="Hasta (Formato DD/MM/AAAA)")
+        popularityEndDateLabel = tk.Label(self.widget, text="Hasta (Formato DD/MM/AAAA)")
         popularityEndDateLabel.pack()
-        popularityEndDate = tk.Entry(widget, bd=2)
+        popularityEndDate = tk.Entry(self.widget, bd=2)
         popularityEndDate.pack()
-        popularityButton = tk.Button(widget, text="VER POPULARIDAD")
+        popularityButton = tk.Button(self.widget, text="VER POPULARIDAD")
         popularityButton.pack(side=tk.BOTTOM)
 
+    def createRatingWindow(self, show, ratingDate):
+        askedDate = datetime.datetime.strptime(ratingDate.get(), '%d/%m/%Y').date()
+        window = RatingWindow(self.widget,show, askedDate)
+
 class RatingWindow():
-    def __init__(self,master, aShow):#, aDate):
+    def __init__(self,master, aShow, aDate):
         show = aShow
         widget = tk.Toplevel(master, padx=150, pady=50)
-        title = "Rating para: " + show.title()
+        title = "Rating para: " + show.title() + " en fecha " + aDate.strftime("%d/%m/%Y")
         widget.title(title)
         
         rating = tk.StringVar()
@@ -125,8 +139,8 @@ class PostWindow():
         self.postViews = []
         for post in self.postList:
             if (post.sentiment()==1 and self.positive.get())  \
-               or (post.sentiment==-1 and self.negative.get()) \
-               or (post.sentiment==0 and self.neutral.get()):
+               or (post.sentiment()==-1 and self.negative.get()) \
+               or (post.sentiment()==0 and self.neutral.get()):
                 self.postViews.append(PostDisplay(self.widget, post))
 
 
