@@ -15,6 +15,9 @@ class HardcodedPost:
                 "140 caracteres o por ahí cerca."
     def sentiment(self):
         return 1
+    def date(self):
+        date = datetime.datetime.strptime("11/11/2014", '%d/%m/%Y').date()
+        return date
     
 class HardcodedBadPost:
     def author(self):
@@ -24,7 +27,10 @@ class HardcodedBadPost:
                 "No hay palabras para describir a Null."
     def sentiment(self):
         return -1    
-
+    def date(self):
+        date = datetime.datetime.strptime("10/5/2014", '%d/%m/%Y').date()
+        return date
+        
 show = HardcodedTVShow()
 show2 = HardcodedTVShow()
 myShows = [show,show2]
@@ -42,133 +48,170 @@ class Application(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
+        self.title = tk.Label( self,text="TWEET-RATING", 
+                               font=("",40))
+        self.title.pack()
         self.shows = ShowSelector(self,myShows)
 
-class ShowSelector():    
+
+class ShowSelector(tk.Menubutton):    
     def __init__(self, master, aShowCollection):
         self.shows = aShowCollection
         self.showVariables = [tk.IntVar() for e in range(len(self.shows))]
-        self.widget = tk.Menubutton(master, text="PROGRAMAS",
-                                    padx = 50, pady= 50, relief=tk.RAISED)
-        self.widget.grid()
-        self.widget.menu  =  tk.Menu ( self.widget, tearoff = 0 )
-        self.widget["menu"]  =  self.widget.menu
+        super().__init__(master, text="Seleccionar programa",
+                                    padx = 20, pady= 10, relief=tk.RAISED)
+        self.grid()
+        self.menu  =  tk.Menu ( self, tearoff = 0 )
+        self["menu"]  =  self.menu
         for show,showVariable in zip(self.shows,self.showVariables):
             self.addShow(show,showVariable)
         self.pack()
 
     def pack(self):
-        self.widget.pack(side="top")
+        super().pack(side="top")
 
     def addShow(self, aShow, aVariable):
-        self.widget.menu.add_command (label=aShow.title(),
+        self.menu.add_command (label=aShow.title(),
                                    command=lambda:self.openShow(aShow) )
     
     def openShow(self,aShow):
-        window = ShowWindow(self.widget,aShow)
+        window = ShowWindow(self,aShow)
 
 
-class ShowWindow():
+class ShowWindow(tk.Toplevel):
     def __init__(self,master, aShow):
         show = aShow
-        self.widget = tk.Toplevel(master, padx=150, pady=50)
+        super().__init__(master, padx=150, pady=50)
         title = "Opciones para: " + show.title()
-        self.widget.title(title)
-        ratingDateLabel = tk.Label(self.widget, text="Fecha de Rating (Formato DD/MM/AAAA)")
+        self.title(title)
+        titleLabel = tk.Label(self, text=show.title(),font=("",25), pady=25)
+        titleLabel.pack()
+        ratingDateLabel = tk.Label(self, text="Fecha de Rating (Formato DD/MM/AAAA)")
         ratingDateLabel.pack()
-        ratingDate = tk.Entry(self.widget, bd=2)
+        ratingDate = tk.Entry(self, bd=2)
         ratingDate.insert(0,"11/11/2011")
         ratingDate.pack()
-        ratingButton = tk.Button(self.widget, text="VER RATING",
+        ratingButton = tk.Button(self, text="VER RATING",
                                  command=lambda: self.createRatingWindow(show,ratingDate))
         ratingButton.pack(side=tk.TOP)
-        popularityStartDateLabel = tk.Label(self.widget, text="Popularidad desde (Formato DD/MM/AAAA)")
+        popularityStartDateLabel = tk.Label(self, text="Popularidad desde (Formato DD/MM/AAAA)")
         popularityStartDateLabel.pack()
-        popularityStartDate = tk.Entry(self.widget, bd=2)
+        popularityStartDate = tk.Entry(self, bd=2)
+        popularityStartDate.insert(0,"11/11/2011")
         popularityStartDate.pack()
-        popularityEndDateLabel = tk.Label(self.widget, text="Hasta (Formato DD/MM/AAAA)")
+        popularityEndDateLabel = tk.Label(self, text="Hasta (Formato DD/MM/AAAA)")
         popularityEndDateLabel.pack()
-        popularityEndDate = tk.Entry(self.widget, bd=2)
+        popularityEndDate = tk.Entry(self, bd=2)
+        popularityEndDate.insert(0,"12/11/2011")
         popularityEndDate.pack()
-        popularityButton = tk.Button(self.widget, text="VER POPULARIDAD")
+        popularityButton = tk.Button(self, text="VER POPULARIDAD",
+                                     command=lambda: self.createPopularityWindow(show,popularityStartDate,popularityEndDate))
         popularityButton.pack(side=tk.BOTTOM)
 
     def createRatingWindow(self, show, ratingDate):
         askedDate = datetime.datetime.strptime(ratingDate.get(), '%d/%m/%Y').date()
-        window = RatingWindow(self.widget,show, askedDate)
+        window = RatingWindow(self,show, askedDate, askedDate)
 
-class RatingWindow():
-    def __init__(self,master, aShow, aDate):
+    def createPopularityWindow(self, show, popularityStartDate,popularityEndDate):
+        startDate = datetime.datetime.strptime(popularityStartDate.get(), '%d/%m/%Y').date()
+        endDate = datetime.datetime.strptime(popularityEndDate.get(), '%d/%m/%Y').date()
+        window = PopularityWindow(self,show, startDate, endDate)
+
+class MeterWindow(tk.Toplevel):
+    def __init__(self,master, aShow, startDate, endDate):
         show = aShow
-        widget = tk.Toplevel(master, padx=150, pady=50)
-        title = "Rating para: " + show.title() + " en fecha " + aDate.strftime("%d/%m/%Y")
-        widget.title(title)
+        dates = [startDate, endDate]
+        super().__init__(master, padx=150, pady=50)
+        title = self.makeTitle(show, dates)
+        self.title(title)
         
-        rating = tk.StringVar()
-        ratingDisplay = tk.Label( widget,textvariable=rating,
-                               font=("Ubuntu",40), relief=tk.RAISED )
+        meter = tk.StringVar()
+        meterDisplay = tk.Label(self,textvariable=meter, font=("",50))
 
-        rating.set("42")
-        ratingDisplay.pack()
-        seePostsButton = tk.Button(widget, text="VER TWEETS",
-                                 command=lambda: PostWindow(widget,aShow,myPostList))###
+        meter.set("42")
+        meterDisplay.pack()
+        seePostsButton = tk.Button(self, text="VER TWEETS",
+                                 command=lambda: PostWindow(self,aShow,myPostList))###
         seePostsButton.pack()
 
-class PostWindow():
+class RatingWindow(MeterWindow):
+    #def __init__(self,master, aShow, startDate, endDate):
+     #   super().__init__(self,master, aShow, startDate, endDate)
+    
+    def makeTitle(self,show,dates):
+        return "Rating para: " + show.title() + " en fecha " + dates[0].strftime("%d/%m/%Y")
+
+class PopularityWindow(MeterWindow):
+    def makeTitle(self,show,dates):
+        return "Popularidad para: " + show.title() + " desde " +\
+               dates[0].strftime("%d/%m/%Y") + " hasta " + dates[1].strftime("%d/%m/%Y")
+  
+
+class PostWindow(tk.Toplevel):
     def __init__(self,master, aShow, aPostList):
         show = aShow
         self.postList = aPostList
-        self.widget = tk.Toplevel(master, padx=60, pady=10)
+        super().__init__(master, padx=60, pady=10)
         title = "Lista de tweets de: " + show.title()
-        self.widget.title(title)
+        self.title(title)
         self.postViews = []
         
         self.positive = tk.IntVar()
         self.negative = tk.IntVar()
         self.neutral = tk.IntVar()
         self.createSentimentOptions(self.positive, self.negative, self.neutral)
-        positive = 1
-        resetPostsButton = tk.Button(self.widget, text="BUSCAR TWEETS",
+        self.positive.set(1)
+        resetPostsButton = tk.Button(self, text="BUSCAR TWEETS",
                                      command=lambda:self.generatePosts())
         resetPostsButton.pack()
         
         self.generatePosts()
 
     def generatePosts(self):
-        for view in self.postViews: view.widget.destroy()
+        for view in self.postViews: view.destroy()
         self.postViews = []
         for post in self.postList:
             if (post.sentiment()==1 and self.positive.get())  \
                or (post.sentiment()==-1 and self.negative.get()) \
                or (post.sentiment()==0 and self.neutral.get()):
-                self.postViews.append(PostDisplay(self.widget, post))
+                _postDisp = PostDisplay(self, post)
+                _postDisp.pack()
+                self.postViews.append(_postDisp)
 
 
     def createSentimentOptions(self, positive, negative, neutral):
-        frame = tk.LabelFrame(self.widget, text="Filtro de tweets")
+        frame = tk.LabelFrame(self, text="Filtro de tweets")
         frame.pack()
         positiveCheck = SentimentOption(frame,"Positivos", positive)
         negativeCheck = SentimentOption(frame,"Negativos", negative)
         neutralCheck = SentimentOption(frame,"Neutrales", neutral)
-        positiveCheck.widget.grid(column=0,row=0) 
-        negativeCheck.widget.grid(column=1,row=0)  
-        neutralCheck.widget.grid(column=2,row=0)
+        positiveCheck.grid(column=0,row=0) 
+        negativeCheck.grid(column=1,row=0)  
+        neutralCheck.grid(column=2,row=0)
 
 
-class SentimentOption():
+class SentimentOption(tk.Checkbutton):
     def __init__(self,master, aName, aVariable):
-        self.widget = tk.Checkbutton(master, text = aName, variable = aVariable,
+        super().__init__(master, text = aName, variable = aVariable,
                              onvalue = 1, offvalue = 0, height=5, 
                              width = 8)
         
-class PostDisplay():
+class PostDisplay(tk.LabelFrame):
     def __init__(self,master,aPost):
-        self.widget = tk.LabelFrame(master, text=aPost.author())
-        self.widget.pack()
-        content = tk.Label(self.widget, text=aPost.content(), wraplength=300)
-        content.pack()
-
-
+        super().__init__(master, text=aPost.author())
+        
+        upperFrame = tk.Frame(self)
+        upperFrame.pack(side = tk.TOP)
+        date = aPost.date().strftime("%d/%m/%Y")
+        dateView = tk.Label(upperFrame, text=date)
+        dateView.pack(side = tk.LEFT)
+        sentimentView = tk.Label(upperFrame, text=aPost.sentiment())
+        sentimentView.pack(side = tk.RIGHT)
+        
+        lowerFrame = tk.Frame(self)
+        lowerFrame.pack(side = tk.BOTTOM)
+        contentView = tk.Label(lowerFrame, text=aPost.content(), wraplength=300)
+        contentView.pack(side = tk.BOTTOM)
 
 
 
