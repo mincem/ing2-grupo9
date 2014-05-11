@@ -1,5 +1,10 @@
 import tkinter as tk
 import datetime
+from PopularityMeter import *
+from RatingMeter import *
+from MeasureViewer import *
+from PostsView import *
+
 
 class HardcodedTVShow:
     def title(self):
@@ -43,7 +48,7 @@ myPostList = [post,post2]
 class Application(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master, padx = 50, pady= 50)
-        self.master.title("Rating")
+        self.master.title("Tweet-Rating")
         self.pack()
         self.createWidgets()
 
@@ -162,19 +167,28 @@ class PostWindow(tk.Toplevel):
         self.createSentimentOptions(self.positive, self.negative, self.neutral)
         self.positive.set(1)
         resetPostsButton = tk.Button(self, text="BUSCAR TWEETS",
-                                     command=lambda:self.generatePosts())
+                                     command=lambda:self.generatePosts(postBox))
         resetPostsButton.pack()
-        
-        self.generatePosts()
 
-    def generatePosts(self):
+        scrollbar = tk.Scrollbar(self)
+        canvas = tk.Canvas(self, height=550, width=500, yscrollcommand = scrollbar.set)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.TRUE)
+        postBox = tk.Frame(canvas)
+        postBox.pack()
+        
+        #scrollbar.pack( side = tk.RIGHT, fill=tk.Y )
+        scrollbar.config( command = canvas.yview )
+        
+        self.generatePosts(postBox)
+
+    def generatePosts(self, postBox):
         for view in self.postViews: view.destroy()
         self.postViews = []
         for post in self.postList:
             if (post.sentiment()==1 and self.positive.get())  \
                or (post.sentiment()==-1 and self.negative.get()) \
                or (post.sentiment()==0 and self.neutral.get()):
-                _postDisp = PostDisplay(self, post)
+                _postDisp = PostDisplay(postBox, post)
                 _postDisp.pack()
                 self.postViews.append(_postDisp)
 
