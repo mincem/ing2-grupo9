@@ -2,7 +2,7 @@ import tkinter as tk
 import datetime
 from PopularityMeter import *
 from RatingMeter import *
-from MeasureViewer import *
+from MeasureView import *
 from PostsView import *
 
 
