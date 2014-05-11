@@ -6,7 +6,7 @@ class MeasureView:
         self._rating = Rating(0)
         
     def update(self, qualifiedPosts):
-        value = quilifiedPosts.len()
+        value = len(quilifiedPosts)
 
     def getRating(self):
         return self._rating 
