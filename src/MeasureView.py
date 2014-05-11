@@ -1,7 +1,7 @@
 from Observer import *
 from Rating import *
 
-class MeasureView: 
+class MeasureView(Observer): 
     def __init__(self):
         self._rating = Rating(0)
         

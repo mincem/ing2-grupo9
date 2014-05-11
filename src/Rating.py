@@ -4,4 +4,4 @@ class Rating:
         self._value = value
 
     def getValue(self):
-        return(self.value)
+        return(self._value)

@@ -17,9 +17,6 @@ class PopularityMeter(Meter):
     def getFinalDate(self):
         return self._finalDate
     
-    def notify(posts):
-        super.notify(post)
-
     def measure(self, aPostProvider, aPostQualifier):
         posts = aPostProvider.posts(self._tvShow, 
                                     self._initialDate,
@@ -29,9 +26,3 @@ class PopularityMeter(Meter):
             qualifyPost = aPostQualifier.qualify(post)
             qualifyPosts.add(qulifyPost)
         self.notify(posts)
-
-    def subscribe(anObserver):
-        super.subscribe(anObserver)
-            
-    def unsubscribe(anObserver):
-        super.unsubscribe(anObserver)

@@ -4,9 +4,12 @@ class Observable:
     __metaclass__ = ABCMeta
     
     @abstractmethod
-    def _init_(self):
+    def __init__(self):
         self._observers = []
 
+    def getObservers(self):
+        return self._observers
+    
     @abstractmethod
     def notify(self, data):
         for observer in self._observers:
@@ -15,7 +18,7 @@ class Observable:
     
     @abstractmethod
     def subscribe(self, anObserver):
-        self._observers.add(anObserver)
+        self._observers.append(anObserver)
             
     @abstractmethod
     def unsubscribe(self, anObserver):
