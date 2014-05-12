@@ -1,15 +1,11 @@
 class TweeterConector(list):
 
-    def __init__(self):
+    def __init__(self, tweetsList):
         list.__init__([])
         """ En tweets van los tweets harcodeados para probar """
         tweets = []
         self.extend(tweetsList)
 
-    def tweetsSince(aDate):
-        print ("TODO: TweeterConector::tweetsSince(aDate)")
-        return []
-
-    def tweetsInPeriod(initialDate, finalDate):
+    def tweetsBasicRequest(initialDate, finalDate, hashtags):
         print ("TODO: TweeterConector::tweetsInPeriod(initialDate, finalDate)")
         return []
