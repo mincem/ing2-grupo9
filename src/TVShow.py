@@ -7,13 +7,16 @@ class TVShow:
         self._time = time
 
     def getHashtags(self):
-        return _hashtags
+        return self._hashtags
 
     def getDays(self):
-        return _days
+        return self._days
 
     def getTime(self):
-        return _time
+        return self._time
+
+    def getTitle(self):
+        return self._title
 
 class MyTVShows:
 
@@ -26,19 +29,20 @@ class MyTVShows:
 class BailandoTVShow(TVShow):
 
     def __init__(self):
-        hastags = ["#Bailando2014, cuervoTinelli, #Showmatch2014"]
+        hashtags = ["Bailando2014, cuervoTinelli, #Showmatch2014"]
         days = ["lunes"]
         time = "22:30"
-        super.__init__(self,"Bailando por un sueño", 
+        super(BailandoTVShow, self).__init__("Bailando por un sueño", 
                        hashtags,
                        days, time)
 
-class 678TVShow(TVShow):
+class Seis78TVShow(TVShow):
 
     def __init__(self):
-        hastags = ["#678", "periodismo militante"]
+        hashtags = ["678elprograma", "678", 
+                    "periodismo militante"]
         days = ["lunes"]
-        time = "22:30"
-        super.__init__(self, "678", 
+        time = "21:30"
+        super(Seis78TVShow, self).__init__("678", 
                        hashtags,
                        days, time)
