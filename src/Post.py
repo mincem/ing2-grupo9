@@ -7,14 +7,14 @@ class Post:
         self._tvShow = tvShow
 
     def getTime(self):
-        return (self._time)
+        return self._time
 
     def getContent(self):
-        return (self._content)
+        return self._content
 
     def getAuthor(self):
-        return (self._author)
+        return self._author
     
-    def getTvShow(self):
-        return (self._tvShow)
+    def getTVShow(self):
+        return self._tvShow
     
