@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import tkinter as tk
 import datetime
 from PopularityMeter import *
@@ -191,7 +193,6 @@ class PostWindow(tk.Toplevel):
     def generatePosts(self, postBox, aPostsView):
         for view in self.postViews: view.destroy()
         self.postViews = []
-        postList = 
         for post in aPostsView.getPosts():
             if (post.sentiment()==1 and self.positive.get())  \
                or (post.sentiment()==-1 and self.negative.get()) \
