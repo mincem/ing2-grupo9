@@ -17,8 +17,10 @@ class RatingMeter(Meter):
 
     def measure(self):
         aPostProvider = PostProvider()
-        aPostQualifier = PostQualifier()
+        """aPostQualifier = PostQualifier()"""
 
-        posts = aPostProvider.postsFromDate(self._tvShow, self._date)
-        qposts = aPostQualifier.qualify(posts)
+        """posts = aPostProvider.postsFromDate(self._tvShow, self._date)
+        qposts = aPostQualifier.qualify(posts)"""
+        
+        qposts = aPostProvider.postsFromDateWithSentiment(self._tvShow, self._date)
         self.notify(qposts)
