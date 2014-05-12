@@ -1,9 +1,6 @@
 from Meter import *
 from Post import Post
-from QualifyPost import QualifyPost
-
-from gui import HardcodedPost
-from gui import HardcodedBadPost
+from QualifiedPost import QualifiedPost
 
 from SentimentClassifier import FileSentimentClassifier
 from Sentiment import *
@@ -17,6 +14,6 @@ class PostQualifier:
         
         for post in posts:
             sentiment = sc.classify(post.getContent())
-            qposts.append(QualifyPost(post, sentiment))
+            qposts.append(QualifiedPost(post, sentiment))
         
         return qposts
