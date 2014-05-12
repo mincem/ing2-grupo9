@@ -60,7 +60,7 @@ class HardcodedTwitter(Twitter):
         with open(filename, "r") as f:
             return json.load(f)
 
-    def searchSinceUntil(self, keyord, date):
+    def searchSinceUntil(self, keyword, initialDate, finalDate):
         if any(keyword in s for s in
                BailandoTVShow().getHashtags()):
             filename = "BailandoTweets"

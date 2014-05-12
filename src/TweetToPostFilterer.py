@@ -1,6 +1,6 @@
 from BasicPostFilterer import BasicPostFilterer
 from Post import Post
-from TwitterConector import TwitterConector
+from Twitter import Twitter*
 from TVShow import TVShow
 
 class TweetToPostFilterer(BasicPostFilterer):
@@ -11,6 +11,16 @@ class TweetToPostFilterer(BasicPostFilterer):
         self._tvShow = tvShow
 
     def Posts(self):
-        t = TwitterConector()
-        return t.tweetsBasicRequest(_initialDate, _finalDate, tvShow.getHashtags)
+        t = HarcodedTwitter()
+        posts = []
+        for hashtag in tvShow.getHashtags:
+			tweet = t.searchSinceUntil(hashtag, self._initialDate, self._finalDate)
+			print(tweet)
+			posts.append(JsonToPost(tweet))
+		return posts
+        
+
+def JsonToPost(tweetJson):
+	""" TODO """	
+	return tweetJson
     
