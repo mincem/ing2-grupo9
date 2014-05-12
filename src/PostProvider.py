@@ -19,6 +19,8 @@ class PostProvider:
         'TODO: do not hardcode this'
         return [HardcodedPost(), HardcodedBadPost()]
  """
+	def __init__(self):
+		pass
 
     def postsFromPeriod(self, tvShow, initialDate, finalDate):
         filterer = TweetToPostFilterer(initialDate, finalDate, tvShow)
@@ -34,19 +36,19 @@ class PostProvider:
     def postsWithSentimentFromPeriod(self, tvShow, initialDate, finalDate):
         posts = postsFromPeriod(tvShow, initialDate, finalDate)
         mySentimentClassifier = FileSentimentClassifier("positive_words.txt", "negative_words.txt")
-        postsWhitSentiment = []
+        postsWithSentiment = []
         for p in posts:
 			sentiment = sc.classify(p.getContent)
-			postsWhithSentiment.append(PostWithSentiment(p, sentiment)
+			postsWithSentiment.append(PostWithSentiment(p, sentiment)
 		return postsWithSentiment
 
     def postsWhithSentimentFromDate(self, tvShow, aDate):
         posts = postsFromDate(tvShow, aDate)
         mySentimentClassifier = FileSentimentClassifier("positive_words.txt", "negative_words.txt")
-        postsWhitSentiment = []
+        postsWithSentiment = []
         for p in posts:
 			sentiment = sc.classify(p.getContent)
-			postsWhithSentiment.append(PostWithSentiment(p, sentiment)
+			postsWithSentiment.append(PostWithSentiment(p, sentiment)
 		return postsWithSentiment
 
 
