@@ -115,29 +115,37 @@ class ShowWindow(tk.Toplevel):
 
     def createRatingWindow(self, show, ratingDate):
         askedDate = datetime.datetime.strptime(ratingDate.get(), '%d/%m/%Y').date()
-        window = RatingWindow(self,show, askedDate, askedDate)
+        ratingMeter = RatingMeter(show, askedDate)
+        window = RatingWindow(self,show, askedDate, askedDate,ratingMeter)
 
     def createPopularityWindow(self, show, popularityStartDate,popularityEndDate):
         startDate = datetime.datetime.strptime(popularityStartDate.get(), '%d/%m/%Y').date()
         endDate = datetime.datetime.strptime(popularityEndDate.get(), '%d/%m/%Y').date()
-        window = PopularityWindow(self,show, startDate, endDate)
+        popularityMeter = PopularityMeter(show, startDate, endDate)
+        window = PopularityWindow(self,show, startDate, endDate, popularityMeter)
 
 class MeterWindow(tk.Toplevel):
-    def __init__(self,master, aShow, startDate, endDate):
+    def __init__(self,master, aShow, startDate, endDate, aMeter):
         show = aShow
         dates = [startDate, endDate]
+        meter = aMeter
         super().__init__(master, padx=150, pady=50)
         title = self.makeTitle(show, dates)
         self.title(title)
         
-        meter = tk.StringVar()
-        meterDisplay = tk.Label(self,textvariable=meter, font=("",50))
-
-        meter.set("42")
+        meterNumber = tk.StringVar()
+        meterNumber.set(meter.measure())
+        meterDisplay = tk.Label(self,textvariable=meterNumber, font=("",50))
         meterDisplay.pack()
+        
         seePostsButton = tk.Button(self, text="VER TWEETS",
-                                 command=lambda: PostWindow(self,aShow,myPostList))###
+                                 command=lambda: createPostWindow(self,show,meter))###
         seePostsButton.pack()
+        
+    def createPostWindow(self,aShow, aMeter):
+        aPostsView = PostsView()
+        aMeter.subscribe(aPostsView)
+        postWindow = PostWindow(self, aShow, aPostsView)
 
 class RatingWindow(MeterWindow):
     #def __init__(self,master, aShow, startDate, endDate):
@@ -153,9 +161,8 @@ class PopularityWindow(MeterWindow):
   
 
 class PostWindow(tk.Toplevel):
-    def __init__(self,master, aShow, aPostList):
+    def __init__(self,master, aShow, aPostsView):
         show = aShow
-        self.postList = aPostList
         super().__init__(master, padx=60, pady=10)
         title = "Lista de tweets de: " + show.title()
         self.title(title)
@@ -167,7 +174,7 @@ class PostWindow(tk.Toplevel):
         self.createSentimentOptions(self.positive, self.negative, self.neutral)
         self.positive.set(1)
         resetPostsButton = tk.Button(self, text="BUSCAR TWEETS",
-                                     command=lambda:self.generatePosts(postBox))
+                                     command=lambda:self.generatePosts(postBox, aPostsView))
         resetPostsButton.pack()
 
         scrollbar = tk.Scrollbar(self)
@@ -179,12 +186,13 @@ class PostWindow(tk.Toplevel):
         #scrollbar.pack( side = tk.RIGHT, fill=tk.Y )
         scrollbar.config( command = canvas.yview )
         
-        self.generatePosts(postBox)
+        self.generatePosts(postBox, aPostsView)
 
-    def generatePosts(self, postBox):
+    def generatePosts(self, postBox, aPostsView):
         for view in self.postViews: view.destroy()
         self.postViews = []
-        for post in self.postList:
+        postList = 
+        for post in aPostsView.getPosts():
             if (post.sentiment()==1 and self.positive.get())  \
                or (post.sentiment()==-1 and self.negative.get()) \
                or (post.sentiment()==0 and self.neutral.get()):
