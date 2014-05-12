@@ -1,15 +1,16 @@
 class Post:
     
-    def __init__(self, content, time, sentiment = "", tvShow = ""):
+    def __init__(self, content, time, tvShow = ""):
         self._time = time
         self._content = content
-        self._sentiment = sentiment
         self._tvShow = tvShow
 
     def getTime(self):
-        return(self.time)
+        return(self._time)
 
     def getContent(self):
-        return(self.content)
-
+        return(self._content)
+    
+    def getTvShow(self):
+        return self._tvShow
     

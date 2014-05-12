@@ -5,7 +5,7 @@ class PostsView(Observer):
         self._qPosts = []
         
     def update(self, qualifiedPosts):
-        self._qPosts = quilifiedPosts
+        self._qPosts = qualifiedPosts
 
     def getPosts(self):
         return self._qPosts

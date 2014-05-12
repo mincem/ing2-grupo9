@@ -17,12 +17,13 @@ class PopularityMeter(Meter):
     def getFinalDate(self):
         return self._finalDate
     
-    def measure(self, aPostProvider, aPostQualifier):
-        posts = aPostProvider.posts(self._tvShow, 
+    def measure(self):
+        aPostProvider = PostProvider()
+        aPostQualifier = PostQualifier()
+
+        posts = aPostProvider.postsFromPeriod(self._tvShow, 
                                     self._initialDate,
                                     self._finalDate)
         
-        for post in posts:
-            qualifyPost = aPostQualifier.qualify(post)
-            qualifyPosts.add(qulifyPost)
-        self.notify(posts)
+        qposts = aPostQualifier.qualify(posts)
+        self.notify(qposts)

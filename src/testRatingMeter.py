@@ -30,5 +30,23 @@ class TestRatingMeter(unittest.TestCase):
         rm.subscribe(pv)
         self.assertEqual(len(rm.getObservers()), 1)
 
+    def test_show_qposts(self):
+        rm = RatingMeter(HardcodedTVShow(), self.aDate)
+        pv = PostsView()
+        mv = MeasureView()
+
+        rm.subscribe(pv)
+        rm.subscribe(mv)
+        rm.measure()
+        for qpost in pv.getPosts():
+            print("Qualified Post:")
+            print(qpost.getSentiment())
+            print(qpost.getContent())
+        
+        print("Medicion de Rating:")
+        print(mv.getRating().getValue())
+
+        self.assertNotEqual(len(pv.getPosts()), 0)
+        
 if __name__ == '__main__':
     unittest.main()

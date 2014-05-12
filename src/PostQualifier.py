@@ -26,7 +26,7 @@ class PostQualifier:
             post = Post(hpost.content(), hpost.date(),
                         hpost.author())
             sentiment = sc.classify(post.getContent())
-            qposts.append(QualifyPost(post,sentiment))
+            qposts.append(QualifyPost(post, sentiment))
         
         return qposts
 

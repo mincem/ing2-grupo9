@@ -7,9 +7,9 @@ class TweeterConector(list):
         self.extend(tweetsList)
 
     def tweetsSince(aDate):
-        print ("TODO: TweeterConector::tweetsSince(aDate)"
+        print ("TODO: TweeterConector::tweetsSince(aDate)")
         return []
 
     def tweetsInPeriod(initialDate, finalDate):
-        print ("TODO: TweeterConector::tweetsInPeriod(initialDate, finalDate)"
+        print ("TODO: TweeterConector::tweetsInPeriod(initialDate, finalDate)")
         return []
