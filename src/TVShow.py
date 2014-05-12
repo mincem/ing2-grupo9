@@ -7,5 +7,5 @@ class TVShow:
     def getHashtags(self):
         return _hashtags
 
-    def getDays(self):
+    def getAiringDays(self):
         return _days
