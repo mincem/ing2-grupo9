@@ -1,4 +1,6 @@
 from Meter import *
+from PostProvider import *
+from PostQualifier import *
 
 class PopularityMeter(Meter):
     """Class to calculate the popularity"""
