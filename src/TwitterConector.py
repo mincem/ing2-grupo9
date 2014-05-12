@@ -1,4 +1,4 @@
-class TweeterConector(list):
+class TwitterConector(list):
 
     def __init__(self, tweetsList):
         list.__init__([])

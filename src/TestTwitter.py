@@ -11,7 +11,7 @@ class TestTwitter(unittest.TestCase):
         self.assertEqual(seis78.getTitle(), "678")
         
         showmatch = BailandoTVShow()
-        # print( showmatch.getDays())
+        # print( showmatch.getAiringDays())
         # print(  showmatch.getTime())
         # print( showmatch.getHashtags() )
 

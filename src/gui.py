@@ -118,30 +118,35 @@ class ShowWindow(tk.Toplevel):
     def createRatingWindow(self, show, ratingDate):
         askedDate = datetime.datetime.strptime(ratingDate.get(), '%d/%m/%Y').date()
         ratingMeter = RatingMeter(show, askedDate)
-        window = RatingWindow(self,show, askedDate, askedDate,ratingMeter)
+        aMeasureView = MeasureView()
+        ratingMeter.subscribe(aMeasureView)
+        window = RatingWindow(self,show, askedDate, askedDate, ratingMeter, aMeasureView)
+
 
     def createPopularityWindow(self, show, popularityStartDate,popularityEndDate):
         startDate = datetime.datetime.strptime(popularityStartDate.get(), '%d/%m/%Y').date()
         endDate = datetime.datetime.strptime(popularityEndDate.get(), '%d/%m/%Y').date()
         popularityMeter = PopularityMeter(show, startDate, endDate)
-        window = PopularityWindow(self,show, startDate, endDate, popularityMeter)
+        aMeasureView = MeasureView()
+        popularityMeter.subscribe(aMeasureView)
+        window = PopularityWindow(self,show, startDate, endDate, popularityMeter, aMeasureView)
 
 class MeterWindow(tk.Toplevel):
-    def __init__(self,master, aShow, startDate, endDate, aMeter):
+    def __init__(self,master, aShow, startDate, endDate, aMeter, aMeasureView):
         show = aShow
         dates = [startDate, endDate]
-        meter = aMeter
+        measureView = aMeasureView
         super().__init__(master, padx=150, pady=50)
         title = self.makeTitle(show, dates)
         self.title(title)
         
         meterNumber = tk.StringVar()
-        meterNumber.set(meter.measure())
+        meterNumber.set(aMeasureView.getRating())
         meterDisplay = tk.Label(self,textvariable=meterNumber, font=("",50))
         meterDisplay.pack()
         
         seePostsButton = tk.Button(self, text="VER TWEETS",
-                                 command=lambda: createPostWindow(self,show,meter))###
+                                 command=lambda: createPostWindow(self,show,aMeter))
         seePostsButton.pack()
         
     def createPostWindow(self,aShow, aMeter):

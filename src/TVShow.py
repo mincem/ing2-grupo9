@@ -9,14 +9,14 @@ class TVShow:
     def getHashtags(self):
         return self._hashtags
 
-    def getDays(self):
-        return self._days
-
     def getTime(self):
         return self._time
 
     def getTitle(self):
         return self._title
+
+    def getAiringDays(self):
+        return self._days
 
 class MyTVShows:
 
@@ -46,3 +46,4 @@ class Seis78TVShow(TVShow):
         super(Seis78TVShow, self).__init__("678", 
                        hashtags,
                        days, time)
+
