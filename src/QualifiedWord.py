@@ -1,4 +1,3 @@
-
 class QualifiedWord:
     """A word with a value that represents its 'positiveness'."""
     def __init__(self, word):

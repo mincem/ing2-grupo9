@@ -1,6 +1,6 @@
 import Post
 
-class QualifyPost:
+class QualifiedPost:
     
     def __init__(self, aPost, sentiment = ""):
         self._sentiment = sentiment
