@@ -22,5 +22,5 @@ class RatingMeter(Meter):
         """posts = aPostProvider.postsFromDate(self._tvShow, self._date)
         qposts = aPostQualifier.qualify(posts)"""
         
-        qposts = aPostProvider.postsFromDateWithSentiment(self._tvShow, self._date)
+        qposts = aPostProvider.postsWithSentimentFromDate(self._tvShow, self._date)
         self.notify(qposts)

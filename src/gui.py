@@ -6,8 +6,9 @@ from PopularityMeter import *
 from RatingMeter import *
 from MeasureView import *
 from PostsView import *
+from TVShow import *
 
-
+"""
 class HardcodedTVShow:
     def title(self):
         return "The Null Show"
@@ -44,6 +45,8 @@ myShows = [show,show2]
 post = HardcodedPost()
 post2 = HardcodedBadPost()
 myPostList = [post,post2]
+"""
+
 
 ###########################################################
 
@@ -58,19 +61,22 @@ class Application(tk.Frame):
         self.title = tk.Label( self,text="TWEET-RATING", 
                                font=("",40))
         self.title.pack()
+        bailando = BailandoTVShow()
+        show678 = Seis78TVShow()
+        myShows = MyTVShows([bailando,show678])
         self.shows = ShowSelector(self,myShows)
 
 
 class ShowSelector(tk.Menubutton):    
     def __init__(self, master, aShowCollection):
         self.shows = aShowCollection
-        self.showVariables = [tk.IntVar() for e in range(len(self.shows))]
+        self.showVariables = [tk.IntVar() for e in range(self.shows.len())]
         super().__init__(master, text="Seleccionar programa",
                                     padx = 20, pady= 10, relief=tk.RAISED)
         self.grid()
         self.menu  =  tk.Menu ( self, tearoff = 0 )
         self["menu"]  =  self.menu
-        for show,showVariable in zip(self.shows,self.showVariables):
+        for show,showVariable in zip(self.shows.getShows(),self.showVariables):
             self.addShow(show,showVariable)
         self.pack()
 
@@ -78,7 +84,7 @@ class ShowSelector(tk.Menubutton):
         super().pack(side="top")
 
     def addShow(self, aShow, aVariable):
-        self.menu.add_command (label=aShow.title(),
+        self.menu.add_command (label=aShow.getTitle(),
                                    command=lambda:self.openShow(aShow) )
     
     def openShow(self,aShow):
@@ -89,9 +95,9 @@ class ShowWindow(tk.Toplevel):
     def __init__(self,master, aShow):
         show = aShow
         super().__init__(master, padx=150, pady=50)
-        title = "Opciones para: " + show.title()
+        title = "Opciones para: " + show.getTitle()
         self.title(title)
-        titleLabel = tk.Label(self, text=show.title(),font=("",25), pady=25)
+        titleLabel = tk.Label(self, text=show.getTitle(),font=("",25), pady=25)
         titleLabel.pack()
         ratingDateLabel = tk.Label(self, text="Fecha de Rating (Formato DD/MM/AAAA)")
         ratingDateLabel.pack()
@@ -120,6 +126,7 @@ class ShowWindow(tk.Toplevel):
         ratingMeter = RatingMeter(show, askedDate)
         aMeasureView = MeasureView()
         ratingMeter.subscribe(aMeasureView)
+        ratingMeter.measure()
         window = RatingWindow(self,show, askedDate, askedDate, ratingMeter, aMeasureView)
 
 
@@ -129,6 +136,7 @@ class ShowWindow(tk.Toplevel):
         popularityMeter = PopularityMeter(show, startDate, endDate)
         aMeasureView = MeasureView()
         popularityMeter.subscribe(aMeasureView)
+        popularityMeter.measure()
         window = PopularityWindow(self,show, startDate, endDate, popularityMeter, aMeasureView)
 
 class MeterWindow(tk.Toplevel):
@@ -141,12 +149,12 @@ class MeterWindow(tk.Toplevel):
         self.title(title)
         
         meterNumber = tk.StringVar()
-        meterNumber.set(aMeasureView.getRating())
+        meterNumber.set(aMeasureView.getRating().getValue())
         meterDisplay = tk.Label(self,textvariable=meterNumber, font=("",50))
         meterDisplay.pack()
         
         seePostsButton = tk.Button(self, text="VER TWEETS",
-                                 command=lambda: createPostWindow(self,show,aMeter))
+                                 command=lambda: self.createPostWindow(show,aMeter))
         seePostsButton.pack()
         
     def createPostWindow(self,aShow, aMeter):
@@ -159,11 +167,11 @@ class RatingWindow(MeterWindow):
      #   super().__init__(self,master, aShow, startDate, endDate)
     
     def makeTitle(self,show,dates):
-        return "Rating para: " + show.title() + " en fecha " + dates[0].strftime("%d/%m/%Y")
+        return "Rating para: " + show.getTitle() + " en fecha " + dates[0].strftime("%d/%m/%Y")
 
 class PopularityWindow(MeterWindow):
     def makeTitle(self,show,dates):
-        return "Popularidad para: " + show.title() + " desde " +\
+        return "Popularidad para: " + show.getTitle() + " desde " +\
                dates[0].strftime("%d/%m/%Y") + " hasta " + dates[1].strftime("%d/%m/%Y")
   
 
@@ -171,7 +179,7 @@ class PostWindow(tk.Toplevel):
     def __init__(self,master, aShow, aPostsView):
         show = aShow
         super().__init__(master, padx=60, pady=10)
-        title = "Lista de tweets de: " + show.title()
+        title = "Lista de tweets de: " + show.getTitle()
         self.title(title)
         self.postViews = []
         

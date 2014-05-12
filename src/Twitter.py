@@ -63,7 +63,7 @@ class HardcodedTwitter(Twitter):
     def searchSinceUntil(self, keyword, initialDate, finalDate):
         if any(keyword in s for s in
                BailandoTVShow().getHashtags()):
-            filename = "BailandoTweets"
+            filename = "bailandoTweets"
         else:
             filename = "678Tweets"       
 

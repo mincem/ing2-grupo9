@@ -18,13 +18,16 @@ class TVShow:
     def getAiringDays(self):
         return self._days
 
-class MyTVShows:
+class MyTVShows():
 
     def __init__(self, shows):
         self._shows = shows
 
     def getShows(self):
-        return _shows
+        return self._shows
+    
+    def len(self):
+        return len(self.getShows())
 
 class BailandoTVShow(TVShow):
 

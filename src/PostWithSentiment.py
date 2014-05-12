@@ -1,7 +1,7 @@
 from Post import *
 from Sentiment import *
 
-class Post:
+class PostWithSentiment:
     
     def __init__(self, post, sentiment):
         self._post = post
