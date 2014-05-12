@@ -1,18 +1,12 @@
 from Meter import *
 from Post import Post
 from QualifyPost import QualifyPost
-from PostFilterer import PostFilterer
-from BasicPostFilterer import BasicPostFilterer
-from TweetToPostFilterer import TweetToPostFilterer
+
 from gui import HardcodedPost
 from gui import HardcodedBadPost
 
-
 from SentimentClassifier import FileSentimentClassifier
-from Sentiment import PositiveSentiment
-from Sentiment import NegativeSentiment
-from Sentiment import NeutralSentiment
-
+from Sentiment import *
 
 class PostQualifier:
 
@@ -29,5 +23,3 @@ class PostQualifier:
             qposts.append(QualifyPost(post, sentiment))
         
         return qposts
-
-   
