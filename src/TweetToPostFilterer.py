@@ -27,5 +27,4 @@ class TweetToPostFilterer(BasicPostFilterer):
             time = tweetJson['created_at']
             content = tweetJson['text']
             TVShow = self._tvShow
-            print(content)
             return Post(content, time, author, TVShow)
