@@ -5,13 +5,9 @@ from PostQualifier import *
 class PopularityMeter(Meter):
     """Class to calculate the popularity"""
     def __init__(self, tvShow, initialDate, finalDate):
-        self._tvShow = tvShow
         self._initialDate = initialDate
         self._finalDate = finalDate
-        super(PopularityMeter, self).__init__()
-
-    def getTvShow(self):
-        return self._tvShow
+        super(PopularityMeter, self).__init__(tvShow)
         
     def getInitialDate(self):
         return self._initialDate
@@ -20,6 +16,7 @@ class PopularityMeter(Meter):
         return self._finalDate
     
     def measure(self):
+        """ mirar como está hecho en RatingMeter y modificarlo """
         aPostProvider = PostProvider()
         aPostQualifier = PostQualifier()
 

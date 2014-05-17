@@ -5,12 +5,8 @@ from PostQualifier import *
 class RatingMeter(Meter):
     """Class to measure the rating"""
     def __init__(self, tvShow, aDate):
-        self._tvShow = tvShow
         self._date = aDate
-        super(RatingMeter, self).__init__()
-
-    def getTvShow(self):
-        return self._tvShow
+        super(RatingMeter, self).__init__(tvShow)
 
     def getDate(self):
         return self._date

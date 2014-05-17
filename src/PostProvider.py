@@ -29,7 +29,7 @@ class PostProvider:
         mySentimentClassifier = FileSentimentClassifier("positive_words.txt", "negative_words.txt")
         postsWithSentiment = []
         for p in posts:
-            sentiment = sc.classify(p.getContent)
+            sentiment = mySentimentClassifier.classify(p.getContent)
             postsWithSentiment.append(PostWithSentiment(p, sentiment))
         return postsWithSentiment
 

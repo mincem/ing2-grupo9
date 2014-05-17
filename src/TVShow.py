@@ -32,7 +32,7 @@ class MyTVShows():
 class BailandoTVShow(TVShow):
 
     def __init__(self):
-        hashtags = ["Bailando2014, cuervoTinelli, #Showmatch2014"]
+        hashtags = ["Bailando2014", "cuervoTinelli", "#Showmatch2014"]
         days = ["lunes"]
         time = "22:30"
         super(BailandoTVShow, self).__init__("Bailando por un sueño", 

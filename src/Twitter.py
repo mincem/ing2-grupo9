@@ -37,7 +37,7 @@ class Twitter:
                                OAUTH_TOKEN, 
                                OAUTH_TOKEN_SECRET)      
 
-        query = keyword + ' since:' + iniitalDate + ' until:' + finalDate
+        query = keyword + ' since:' + initialDate + ' until:' + finalDate
         
         try:
             search_results = twitter.search(q=query, count=100)

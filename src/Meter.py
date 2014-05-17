@@ -6,10 +6,14 @@ class Meter(Observable):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self):
+    def __init__(self, tvShow):
         super(Meter, self).__init__()
-        pass
+        self._tvShow = tvShow
 
     @abstractmethod
-    def measure(self, tvShow):
+    def measure(self):
         pass
+
+    def getTvShow(self):
+        return self._tvShow
+ 
