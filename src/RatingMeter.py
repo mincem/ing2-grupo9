@@ -1,6 +1,5 @@
 from Meter import *
 from PostProvider import *
-from PostQualifier import *
 
 class RatingMeter(Meter):
     """Class to measure the rating"""
@@ -13,10 +12,6 @@ class RatingMeter(Meter):
 
     def measure(self):
         aPostProvider = PostProvider()
-        """aPostQualifier = PostQualifier()"""
-
-        """posts = aPostProvider.postsFromDate(self._tvShow, self._date)
-        qposts = aPostQualifier.qualify(posts)"""
         
         qposts = aPostProvider.postsWithSentimentFromDate(self._tvShow, self._date)
         self.notify(qposts)

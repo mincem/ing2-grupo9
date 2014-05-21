@@ -1,21 +1,19 @@
 from Observer import *
-from Rating import *
-from Sentiment import *
+from Measure import *
 
 class MeasureView(Observer): 
     def __init__(self):
-        self._rating = Rating(0)
+        self._measure = Measure(0)
         
     def update(self, qualifiedPosts):
         count = 0 
         for qpost in qualifiedPosts:
-            if isinstance (qpost.getSentiment(),
-                           PositiveSentiment):
+            if not qpost.getSentiment().isNegative():
                 count = count + 1
         
-        self._rating = Rating(count)
+        self._measure = Measure(count)
     
 
-    def getRating(self):
-        return self._rating
+    def getMeasure(self):
+        return self._measure
         

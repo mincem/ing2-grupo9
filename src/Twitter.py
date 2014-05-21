@@ -13,15 +13,12 @@ class Twitter:
         OAUTH_TOKEN = auth['oauth_token']
         OAUTH_TOKEN_SECRET = auth['oauth_token_secret']
         
-        twitterFinal = Twython(self._APP_KEY, self._APP_SECRET,
-                               OAUTH_TOKEN,
-                               OAUTH_TOKEN_SECRET)
+#        twitterFinal = Twython(self._APP_KEY, self._APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
         
         query = keyword + ' until:' + date
         
         try:
-            search_results = twitter.search(q=query,
-                                            count=100)
+            search_results = twitter.search(q=query,count=100)
         except TwythonError as e:
             print(e)
             
@@ -52,7 +49,7 @@ class HardcodedTwitter(Twitter):
         
     def searchFrom(self, keyword, date):
         if any(keyword in s for s in
-               BailandoTVShow().getHashtags()):
+               BailandoTVShow().getKeywords()):
             filename = "bailandoTweets"
         else:
             filename = "678Tweets"
@@ -62,7 +59,7 @@ class HardcodedTwitter(Twitter):
 
     def searchSinceUntil(self, keyword, initialDate, finalDate):
         if any(keyword in s for s in
-               BailandoTVShow().getHashtags()):
+               BailandoTVShow().getKeywords()):
             filename = "bailandoTweets"
         else:
             filename = "678Tweets"       

@@ -1,3 +1,4 @@
+from abc import *
 
 class Sentiment(metaclass=ABCMeta):
     """A sentiment extracted from a text."""
@@ -14,28 +15,28 @@ class PositiveSentiment(Sentiment):
     def __str__(self):
         return "Positivo"
     
-    def isPositive():
-        return true
+    def isPositive(self):
+        return True
 
-    def isNegative():
-        return false
+    def isNegative(self):
+        return False
 
 class NegativeSentiment(Sentiment):
     def __str__(self):
         return "Negativo"
 
-    def isPositive():
-        return false
+    def isPositive(self):
+        return False
 
-    def isNegative():
-        return true
+    def isNegative(self):
+        return True
 
 class NeutralSentiment(Sentiment):
     def __str__(self):
         return "Neutro"
 
-    def isPositive():
-        return false
+    def isPositive(self):
+        return False
 
-    def isNegative():
-        return false
+    def isNegative(self):
+        return False

@@ -13,8 +13,8 @@ class TweetToPostFilterer(BasicPostFilterer):
     def Posts(self):
         t = HardcodedTwitter()
         posts = []
-        for hashtag in self._tvShow.getHashtags():
-            tweets = t.searchSinceUntil(hashtag,
+        for key in self._tvShow.getKeywords():
+            tweets = t.searchSinceUntil(key,
                                         self._initialDate,
                                         self._finalDate)
             print(len(tweets['statuses']))

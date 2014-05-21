@@ -1,6 +1,5 @@
 from Meter import *
 from PostProvider import *
-from PostQualifier import *
 
 class PopularityMeter(Meter):
     """Class to calculate the popularity"""
@@ -18,11 +17,9 @@ class PopularityMeter(Meter):
     def measure(self):
         """ mirar como está hecho en RatingMeter y modificarlo """
         aPostProvider = PostProvider()
-        aPostQualifier = PostQualifier()
 
-        posts = aPostProvider.postsFromPeriod(self._tvShow, 
+        qposts = aPostProvider.postsWithSentimentFromPeriod(self._tvShow, 
                                     self._initialDate,
                                     self._finalDate)
         
-        qposts = aPostQualifier.qualify(posts)
         self.notify(qposts)

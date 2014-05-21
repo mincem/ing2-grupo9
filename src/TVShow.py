@@ -1,22 +1,26 @@
 class TVShow:
 
-    def __init__(self, title, hashtags, days, time):
-        self._title = title
-        self._hashtags = hashtags
-        self._days = days
-        self._time = time
+    def __init__(self, name, keywords, airingDays, startTime, endTime):
+        self._name = name
+        self._keywords = keywords
+        self._airingDays = airingDays
+        self._startTime = startTime
+        self._endTime = endTime
 
-    def getHashtags(self):
-        return self._hashtags
+    def getKeywords(self):
+        return self._keywords
 
-    def getTime(self):
-        return self._time
+    def getEndTime(self):
+        return self._endTime
 
-    def getTitle(self):
-        return self._title
+    def getStartTime(self):
+        return self._startTime
+
+    def getName(self):
+        return self._name
 
     def getAiringDays(self):
-        return self._days
+        return self._airingDays
 
 class MyTVShows():
 
@@ -32,21 +36,25 @@ class MyTVShows():
 class BailandoTVShow(TVShow):
 
     def __init__(self):
-        hashtags = ["Bailando2014", "cuervoTinelli", "#Showmatch2014"]
-        days = ["lunes"]
-        time = "22:30"
+        keywords = ["Bailando2014", "cuervoTinelli", "#Showmatch2014"]
+        airingDays = ["lunes"]
+        startTime = "22:30"
+        endTime = "23:59"
         super(BailandoTVShow, self).__init__("Bailando por un sueño", 
-                       hashtags,
-                       days, time)
+                                              keywords,
+                                              airingDays, startTime, 
+                                              endTime)
 
 class Seis78TVShow(TVShow):
 
     def __init__(self):
-        hashtags = ["678elprograma", "678", 
+        keywords = ["678elprograma", "678", 
                     "periodismo militante"]
-        days = ["lunes"]
-        time = "21:30"
+        airingDays = ["lunes"]
+        startTime = "21:00"
+        endTime = "22:30"
         super(Seis78TVShow, self).__init__("678", 
-                       hashtags,
-                       days, time)
+                                           keywords,
+                                           airingDays, startTime,
+                                           endTime)
 

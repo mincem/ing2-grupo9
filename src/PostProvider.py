@@ -1,11 +1,7 @@
-from Meter import *
 from Post import Post
-from PostWithSentiment import *
-from PostFilterer import PostFilterer
-from BasicPostFilterer import BasicPostFilterer
 from TweetToPostFilterer import TweetToPostFilterer
-from SentimentClassifier import *
-
+from QualifiedPost import QualifiedPost
+from SentimentClassifier import FileSentimentClassifier 
 import datetime
 
 class PostProvider:
@@ -30,7 +26,7 @@ class PostProvider:
         postsWithSentiment = []
         for p in posts:
             sentiment = mySentimentClassifier.classify(p.getContent)
-            postsWithSentiment.append(PostWithSentiment(p, sentiment))
+            postsWithSentiment.append(QualifiedPost(p, sentiment))
         return postsWithSentiment
 
     def postsWithSentimentFromDate(self, tvShow, aDate):
@@ -39,5 +35,5 @@ class PostProvider:
         postsWithSentiment = []
         for p in posts:
             sentiment = mySentimentClassifier.classify(p.getContent())
-            postsWithSentiment.append(PostWithSentiment(p, sentiment))
+            postsWithSentiment.append(QualifiedPost(p, sentiment))
         return postsWithSentiment

@@ -1,4 +1,4 @@
-class Rating:
+class Measure:
     
     def __init__(self, value):
         self._value = value
