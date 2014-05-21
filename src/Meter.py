@@ -16,4 +16,3 @@ class Meter(Observable):
 
     def getTVShow(self):
         return self._tvShow
- 

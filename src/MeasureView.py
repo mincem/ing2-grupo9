@@ -16,4 +16,3 @@ class MeasureView(Observer):
 
     def getMeasure(self):
         return self._measure
-        

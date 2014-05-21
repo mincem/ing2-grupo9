@@ -17,4 +17,3 @@ class Post:
     
     def getTVShow(self):
         return self._tvShow
-    

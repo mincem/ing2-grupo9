@@ -57,4 +57,3 @@ class Seis78TVShow(TVShow):
                                            keywords,
                                            airingDays, startTime,
                                            endTime)
-

@@ -17,13 +17,12 @@ class TweetToPostFilterer(BasicPostFilterer):
             tweets = t.searchSinceUntil(key,
                                         self._initialDate,
                                         self._finalDate)
-            print(len(tweets['statuses']))
             for tweet in tweets['statuses']:
                 posts.append(self.JsonToPost(tweet))
         return posts
         
     def JsonToPost(self, tweetJson):
-            author = tweetJson['user']['screen_name'].encode('utf-8')
+            author = tweetJson['user']['screen_name']
             time = tweetJson['created_at']
             content = tweetJson['text']
             TVShow = self._tvShow

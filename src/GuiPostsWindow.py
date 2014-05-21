@@ -44,22 +44,23 @@ class PostsWindow(tk.Toplevel):
         textArea.delete(1.0, tk.END)
         
         for post in aPostsView.getPosts():
-            if (post.sentiment()==1 and self.positive.get())  \
-               or (post.sentiment()==-1 and self.negative.get()) \
-               or (post.sentiment()==0 and self.neutral.get()):
-                self.displayPost(textArea, post)
+            if (post.getSentiment().isPositive() and self.positive.get())  \
+                or (post.getSentiment().isNegative() and self.negative.get()) \
+                    or ( not post.getSentiment().isPositive() 
+                         and not post.getSentiment().isNegative() 
+                        and self.neutral.get() ):
+                    self.displayPost(textArea, post)
                 
     def displayPost(self, textArea, aPost):
         
-        _date = aPost.date().strftime("%d/%m/%Y")
-        _sentiment = aPost.sentiment()
-        _author = aPost.author()
-        _content = aPost.content()
+        _date = aPost.getDateTime()
+        _sentiment = aPost.getSentiment()
+        _author = aPost.getAuthor()
+        _content = aPost.getContent()
         
         for data in [_date,_sentiment,_author,_content]:
             textArea.insert(tk.INSERT, str(data) + "\n\n")
         textArea.insert(tk.INSERT,"\n\n")
-
 
     def createSentimentOptions(self, positive, negative, neutral):
         frame = tk.LabelFrame(self, text="Filtro de tweets")

@@ -6,14 +6,17 @@ class QualifiedPost:
         self._sentiment = sentiment
         self._post = aPost
 
-    def getTime(self):
-        return self._post.getTime()
+    def getDateTime(self):
+        return self._post.getDateTime()
 
     def getContent(self):
         return self._post.getContent()
     
-    def getTvShow(self):
+    def getTVShow(self):
         return self._post.getTVShow()
 
     def getSentiment(self):
         return self._sentiment
+
+    def getAuthor(self):
+        return self._post.getAuthor()

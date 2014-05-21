@@ -26,6 +26,7 @@ class MeterWindow(tk.Toplevel):
     def createPostsWindow(self,aShow, aMeter):
         aPostsView = PostsView()
         aMeter.subscribe(aPostsView)
+        aMeter.measure()
         postsWindow = PostsWindow(self, aShow, aPostsView)
 
 class RatingWindow(MeterWindow):
