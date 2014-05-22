@@ -1,6 +1,8 @@
 from twython import Twython, TwythonError
 from TVShow import *
 import json
+from time import gmtime, strftime
+import datetime
 
 class Twitter:
     def __init__(self):
@@ -14,8 +16,11 @@ class Twitter:
         OAUTH_TOKEN_SECRET = auth['oauth_token_secret']
         
 #        twitterFinal = Twython(self._APP_KEY, self._APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-        
-        query = keyword + ' until:' + date
+
+        sinceDate = date.strftime("%Y-%m-%d")
+
+
+        query = keyword + ' since:' + sinceDate
         
         try:
             search_results = twitter.search(q=query,count=100)
@@ -23,7 +28,31 @@ class Twitter:
             print(e)
             
         return search_results
-        
+
+    def searchForDate(self, keyword, initialDate):
+        twitter = Twython(self._APP_KEY, self._APP_SECRET)
+        auth = twitter.get_authentication_tokens()
+        OAUTH_TOKEN = auth['oauth_token']
+        OAUTH_TOKEN_SECRET = auth['oauth_token_secret']
+
+        twitterFinal = Twython(self._APP_KEY, self._APP_SECRET,
+                               OAUTH_TOKEN,
+                               OAUTH_TOKEN_SECRET)
+
+        sinceDate = initialDate.strftime("%Y-%m-%d")
+
+        untilDate = initialDate + datetime.timedelta(days=1)
+
+        #query = keyword + ' since:' + initialDate.strftime("%Y/%m/%d") + ' until:' + finalDate.strftime("%Y/%m/%d")
+        query = keyword + ' since:' + sinceDate + ' until:' + untilDate
+
+        try:
+            search_results = twitter.search(q=query, count=100)
+        except TwythonError as e:
+            print(e)
+
+        return search_results
+
     def searchSinceUntil(self, keyword, initialDate, finalDate):
         twitter = Twython(self._APP_KEY, self._APP_SECRET)
         auth = twitter.get_authentication_tokens()
@@ -34,8 +63,13 @@ class Twitter:
                                OAUTH_TOKEN, 
                                OAUTH_TOKEN_SECRET)      
 
-        query = keyword + ' since:' + initialDate + ' until:' + finalDate
-        
+        sinceDate = initialDate.strftime("%Y-%m-%d")
+
+        untilDate = finalDate.strftime("%Y-%m-%d")
+
+        #query = keyword + ' since:' + initialDate.strftime("%Y/%m/%d") + ' until:' + finalDate.strftime("%Y/%m/%d")
+        query = keyword + ' since:' + sinceDate + ' until:' + untilDate
+
         try:
             search_results = twitter.search(q=query, count=100)
         except TwythonError as e:

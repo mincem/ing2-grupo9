@@ -17,7 +17,8 @@ class PostProvider:
     def postsFromDate(self, tvShow, aDate):
         """ Para filtrar los de un solo día se llama con ese mismo día
             como comienzo y como final """
-        filterer = TweetToPostFilterer(aDate, aDate, tvShow)
+        untilDate = aDate + datetime.timedelta(days=1)
+        filterer = TweetToPostFilterer(aDate, untilDate, tvShow)
         return filterer.Posts()
 
     def postsWithSentimentFromPeriod(self, tvShow, initialDate, finalDate):

@@ -11,10 +11,10 @@ class TweetToPostFilterer(BasicPostFilterer):
         self._tvShow = tvShow
 
     def Posts(self):
-        t = HardcodedTwitter()
+        twitterAdapter = Twitter()
         posts = []
         for key in self._tvShow.getKeywords():
-            tweets = t.searchSinceUntil(key,
+            tweets = twitterAdapter.searchSinceUntil(key,
                                         self._initialDate,
                                         self._finalDate)
             for tweet in tweets['statuses']:
