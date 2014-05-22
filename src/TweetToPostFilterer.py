@@ -1,6 +1,6 @@
 from BasicPostFilterer import BasicPostFilterer
 from Post import Post
-from Twitter import *
+from TwitterAdapter import *
 from TVShow import TVShow
 
 class TweetToPostFilterer(BasicPostFilterer):
@@ -11,7 +11,7 @@ class TweetToPostFilterer(BasicPostFilterer):
         self._tvShow = tvShow
 
     def getPosts(self):
-        twitterAdapter = Twitter()
+        twitterAdapter = TwitterAdapter()
         posts = []
         tweets = twitterAdapter.fetchTweets(self._initialDate,
                                             self._finalDate,
@@ -20,7 +20,11 @@ class TweetToPostFilterer(BasicPostFilterer):
         for tweet in tweets['statuses']:
             posts.append(self.JsonToPost(tweet))
         return posts
-        
+
+    def getTVShow(self)
+        return self._tvShow
+
+    
     def JsonToPost(self, tweetJson):
             # Revisar esta fucnión cuando esté el adapter
             author = tweetJson['user']['screen_name']

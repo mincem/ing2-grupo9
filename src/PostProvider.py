@@ -1,7 +1,8 @@
-from Post import Post
-from TweetToPostFilterer import TweetToPostFilterer
-from QualifiedPost import QualifiedPost
-from SentimentClassifier import FileSentimentClassifier 
+from Post import *
+from TweetToPostFilterer import *
+from QualifiedPost import *
+from SentimentClassifier import FileSentimentClassifier
+from ByTimePostFilterer import *
 import datetime
 
 class PostProvider:
@@ -11,30 +12,34 @@ class PostProvider:
 
     def postsFromPeriod(self, tvShow, initialDate, finalDate):
         filterer = TweetToPostFilterer(initialDate, finalDate, tvShow)
-        return filterer.Posts()
+        return filterer.getPosts()
 
-
-    def postsFromDate(self, tvShow, aDate):
+    def postsFromDuringAirtime(self, tvShow, aDate):
         """ Para filtrar los de un solo día se llama con ese mismo día
             como comienzo y como final """
-        untilDate = aDate + datetime.timedelta(days=1)
-        filterer = TweetToPostFilterer(aDate, untilDate, tvShow)
-        return filterer.Posts()
+        #untilDate = aDate + datetime.timedelta(days=1)
+        basicFilterer = TweetToPostFilterer(aDate, aDate, tvShow)
+        startTime = basicFilterer.getTVShow().getStartTime()
+        endTime = basicFilterer.getTVShow().getEndTime()
+        timeFilterer = ByTimePostFilterer(basicFilterer, startTime, endTime)
+        return timeFilterer.getPosts()
 
-    def postsWithSentimentFromPeriod(self, tvShow, initialDate, finalDate):
+    def qualifiedPostsFromPeriod(self, tvShow, initialDate, finalDate):
         posts = self.postsFromPeriod(tvShow, initialDate, finalDate)
         mySentimentClassifier = FileSentimentClassifier("positive_words.txt", "negative_words.txt")
-        postsWithSentiment = []
+        qualifiedPosts = []
         for p in posts:
             sentiment = mySentimentClassifier.classify(p.getContent())
-            postsWithSentiment.append(QualifiedPost(p, sentiment))
-        return postsWithSentiment
+            qualifiedPosts.append(QualifiedPost(p, sentiment))
+        return qualifiedPosts
 
-    def postsWithSentimentFromDate(self, tvShow, aDate):
-        posts = self.postsFromDate(tvShow, aDate)
+    def qualifiedPostsDuringAirtime(self, tvShow, aDate):
+        """ esto me parece que hay que cambiarlo para que tome dos DateTime
+        porque eso es lo que se necesita para el rating """
+        posts = self.postsFromDuringAirtime(tvShow, aDate)
         mySentimentClassifier = FileSentimentClassifier("positive_words.txt", "negative_words.txt")
-        postsWithSentiment = []
+        qualifiedPosts = []
         for p in posts:
             sentiment = mySentimentClassifier.classify(p.getContent())
-            postsWithSentiment.append(QualifiedPost(p, sentiment))
-        return postsWithSentiment
+            qualifiedPosts.append(QualifiedPost(p, sentiment))
+        return qualifiedPosts
