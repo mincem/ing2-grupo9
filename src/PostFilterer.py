@@ -3,6 +3,6 @@ from abc import *
 class PostFilterer(metaclass=ABCMeta):
 
     @abstractmethod
-    def Posts(self):
+    def getPosts(self):
         pass
 

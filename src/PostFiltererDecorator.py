@@ -5,7 +5,7 @@ class PostFiltererDecorator(PostFilterer):
     __metaclass__=ABCMeta
 
     @abstractmethod
-    def Posts(self):
+    def getPosts(self):
         pass
     
 

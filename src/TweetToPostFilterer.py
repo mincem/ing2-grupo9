@@ -10,20 +10,21 @@ class TweetToPostFilterer(BasicPostFilterer):
         self._finalDate = finalDate
         self._tvShow = tvShow
 
-    def Posts(self):
+    def getPosts(self):
         twitterAdapter = Twitter()
         posts = []
-        for key in self._tvShow.getKeywords():
-            tweets = twitterAdapter.searchSinceUntil(key,
-                                        self._initialDate,
-                                        self._finalDate)
-            for tweet in tweets['statuses']:
-                posts.append(self.JsonToPost(tweet))
+        tweets = twitterAdapter.fetchTweets(self._initialDate,
+                                            self._finalDate,
+                                            self._tvShow.getKeywords())
+        # Los tweets van a venir del adapter en Json y con eso tengo que crear los post
+        for tweet in tweets['statuses']:
+            posts.append(self.JsonToPost(tweet))
         return posts
         
     def JsonToPost(self, tweetJson):
+            # Revisar esta fucnión cuando esté el adapter
             author = tweetJson['user']['screen_name']
-            time = tweetJson['created_at']
+            dateTime = tweetJson['created_at']
             content = tweetJson['text']
-            TVShow = self._tvShow
-            return Post(content, time, author, TVShow)
+            tvShow = self._tvShow
+            return Post(content, dateTime, author, tvShow)
