@@ -4,7 +4,7 @@ import json
 from time import gmtime, strftime
 import datetime
 
-class Twitter:
+class TwitterAdapter:
     def __init__(self):
         self._APP_KEY = 'D0PYmI7UMWHyzISn4Z7hPx8Mc'
         self._APP_SECRET = 'NNPnwOereOGZhzDxYrRrgM7IvU8khzSW5zT4F2F8LKs5yBwJz1'
@@ -53,7 +53,7 @@ class Twitter:
 
         return search_results
 
-    def searchSinceUntil(self, keyword, initialDate, finalDate):
+    def fetchTweets(self, initialDate, finalDate, keywordCollection):
         twitter = Twython(self._APP_KEY, self._APP_SECRET)
         auth = twitter.get_authentication_tokens()
         OAUTH_TOKEN = auth['oauth_token']
@@ -68,6 +68,7 @@ class Twitter:
         untilDate = finalDate.strftime("%Y-%m-%d")
 
         #query = keyword + ' since:' + initialDate.strftime("%Y/%m/%d") + ' until:' + finalDate.strftime("%Y/%m/%d")
+        keyword = ' OR '.join(keywordCollection)
         query = keyword + ' since:' + sinceDate + ' until:' + untilDate
 
         try:
@@ -77,7 +78,7 @@ class Twitter:
             
         return search_results
 
-class HardcodedTwitter(Twitter):
+class HardcodedTwitter(TwitterAdapter):
     def __init__(self):
         super(HardcodedTwitter, self).__init__()
         
