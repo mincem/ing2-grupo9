@@ -57,10 +57,15 @@ class PostsWindow(tk.Toplevel):
         _sentiment = aPost.getSentiment()
         _author = aPost.getAuthor()
         _content = aPost.getContent()
+
+        _dateString = "Fecha: " + str(_date)
+        _sentimentString = "\t Calificación: " + str(_sentiment) + "\n"
+        _authorString = "Autor: " + str(_author) + "\n"
+        _contentString = str(_content) + "\n\n"
+
         
-        for data in [_date,_sentiment,_author,_content]:
-            textArea.insert(tk.INSERT, str(data) + "\n\n")
-        textArea.insert(tk.INSERT,"\n\n")
+        for data in [_dateString,_sentimentString,_authorString,_contentString]:
+            textArea.insert(tk.INSERT, str(data))
 
     def createSentimentOptions(self, positive, negative, neutral):
         frame = tk.LabelFrame(self, text="Filtro de tweets")
