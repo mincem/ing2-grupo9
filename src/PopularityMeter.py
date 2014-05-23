@@ -16,10 +16,10 @@ class PopularityMeter(Meter):
     
     def measure(self):
         """ mirar como está hecho en RatingMeter y modificarlo """
-        aPostProvider = PostProvider()
+        if self._qPosts == []:
+            aPostProvider = PostProvider()
+            self._qPosts = aPostProvider.qualifiedPostsFromPeriod(self._tvShow, 
+                                                                  self._initialDate,
+                                                                  self._finalDate)
 
-        qposts = aPostProvider.postsWithSentimentFromPeriod(self._tvShow, 
-                                    self._initialDate,
-                                    self._finalDate)
-        
-        self.notify(qposts)
+        self.notify(self._qPosts)

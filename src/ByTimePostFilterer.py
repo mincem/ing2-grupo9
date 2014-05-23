@@ -12,7 +12,7 @@ class ByTimePostFilterer(PostFiltererDecorator):
 
     def getPosts(self):
         # TODO
-        originalPosts = aPostFilterer.getPosts()
+        originalPosts = self._aPostFilterer.getPosts()
         posts = []
         for post in originalPosts:
             if (post.getDateTime().time() >= self._startTime and post.getDateTime().time() <= self._endTime):

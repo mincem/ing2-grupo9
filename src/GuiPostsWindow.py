@@ -41,15 +41,19 @@ class PostsWindow(tk.Toplevel):
     def generatePosts(self, textArea, aPostsView):
         #for view in self.postViews: view.destroy()
         #self.postViews = [] 
+        aFilter = []
         textArea.delete(1.0, tk.END)
         
+        if self.positive.get():
+            aFilter.append('Positivo')
+        if self.negative.get():
+            aFilter.append('Negativo')
+        if self.neutral.get():
+            aFilter.append('Neutro')
+
+        aPostsView.setSentimentFilter(aFilter)
         for post in aPostsView.getPosts():
-            if (post.getSentiment().isPositive() and self.positive.get())  \
-                or (post.getSentiment().isNegative() and self.negative.get()) \
-                    or ( not post.getSentiment().isPositive() 
-                         and not post.getSentiment().isNegative() 
-                        and self.neutral.get() ):
-                    self.displayPost(textArea, post)
+            self.displayPost(textArea, post)
                 
     def displayPost(self, textArea, aPost):
         

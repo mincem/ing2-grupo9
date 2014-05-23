@@ -48,8 +48,8 @@ class ShowWindow(tk.Toplevel):
 
     def createPopularityWindow(self, show, popularityStartDate,popularityEndDate): 
         if self.twoDateValidations(popularityStartDate,popularityEndDate):
-            startDate = datetime.datetime.strptime(popularityStartDate.get(), '%d/%m/%Y').date()
-            endDate = datetime.datetime.strptime(popularityEndDate.get(), '%d/%m/%Y').date()
+            startDate = datetime.datetime.strptime(popularityStartDate, '%d/%m/%Y').date()
+            endDate = datetime.datetime.strptime(popularityEndDate, '%d/%m/%Y').date()
             popularityMeter = PopularityMeter(show, startDate, endDate)
             aMeasureView = MeasureView()
             popularityMeter.subscribe(aMeasureView)
@@ -65,15 +65,15 @@ class ShowWindow(tk.Toplevel):
         return True
 
     def validatePast(self,dateText):
-        isPast = datetime.datetime.strptime(dateText.get(), '%d/%m/%Y').date() <= datetime.datetime.now()
+        isPast = datetime.datetime.strptime(dateText, '%d/%m/%Y').date() <= datetime.date.today()
         if not isPast:
             error = ValueError("Future date") # esto parece herejia, pero a ver si anda
             self.makeErrorBox(error)
         return isPast
 
     def validateRange(self,dateTextOne, dateTextTwo):
-        dateOne = datetime.datetime.strptime(dateTextOne.get(), '%d/%m/%Y').date()
-        dateTwo = datetime.datetime.strptime(dateTextTwo.get(), '%d/%m/%Y').date()
+        dateOne = datetime.datetime.strptime(dateTextOne, '%d/%m/%Y').date()
+        dateTwo = datetime.datetime.strptime(dateTextTwo, '%d/%m/%Y').date()
         isRange = dateOne <= dateTwo
         if not isRange:
             error = ValueError("First date is after second") # esto parece herejia, pero a ver si anda
@@ -87,7 +87,7 @@ class ShowWindow(tk.Toplevel):
         errorLabel = tk.Label(errorBox, text=str(error))
         errorLabel.pack()
 
-    def oneDateValidations(self,dataText):
+    def oneDateValidations(self,dateText):
         valid = self.validateFormat(dateText)
         valid = valid and self.validatePast(dateText)
         return valid
@@ -97,5 +97,3 @@ class ShowWindow(tk.Toplevel):
         valid = valid and self.oneDateValidations(dateTextTwo)
         valid = valid and self.validateRange(dateTextOne,dateTextTwo)
         return valid
-        
-        

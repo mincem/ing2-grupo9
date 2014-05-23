@@ -24,9 +24,8 @@ class TweetToPostFilterer(BasicPostFilterer):
     def getTVShow(self):
         return self._tvShow
 
-    
     def JsonToPost(self, tweetJson):
-            # Revisar esta fucnión cuando esté el adapter
+            # Revisar esta función cuando esté el adapter
             author = tweetJson['user']['screen_name']
             dateTime = tweetJson['created_at']
             content = tweetJson['text']

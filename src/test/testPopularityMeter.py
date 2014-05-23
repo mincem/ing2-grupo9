@@ -37,5 +37,24 @@ class TestPopularityMeter(unittest.TestCase):
         self.pm.unsubscribe(pv)
         self.assertEqual(len(self.pm.getObservers()), 0)
 
+    def test_show_qposts(self):
+        pv = PostsView()
+        mv = MeasureView()
+
+        self.pm.subscribe(pv)
+        self.pm.subscribe(mv)
+        self.pm.measure()
+        for qpost in pv.getPosts():
+            print("Qualified Post:")
+            print(qpost.getSentiment())
+            print(qpost.getContent())
+            print()
+        
+        print("Medicion de Popularidad:")
+        print(mv.getMeasure().getValue())
+
+        self.assertNotEqual(len(pv.getPosts()), 0)
+
+
 if __name__ == '__main__':
     unittest.main()

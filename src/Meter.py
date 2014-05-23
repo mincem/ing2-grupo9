@@ -9,6 +9,7 @@ class Meter(Observable):
     def __init__(self, tvShow):
         super(Meter, self).__init__()
         self._tvShow = tvShow
+        self._qPosts = []
 
     @abstractmethod
     def measure(self):

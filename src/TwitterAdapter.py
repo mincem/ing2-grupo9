@@ -3,6 +3,7 @@ from TVShow import *
 import json
 from time import gmtime, strftime
 import datetime
+import urllib
 
 class TwitterAdapter:
     def __init__(self):
@@ -69,6 +70,8 @@ class TwitterAdapter:
 
         #query = keyword + ' since:' + initialDate.strftime("%Y/%m/%d") + ' until:' + finalDate.strftime("%Y/%m/%d")
         keyword = ' OR '.join(keywordCollection)
+        keyword = urllib.parse.quote_plus(keyword)
+        # print(keyword)
         query = keyword + ' since:' + sinceDate + ' until:' + untilDate
 
         try:
@@ -92,8 +95,8 @@ class HardcodedTwitter(TwitterAdapter):
         with open(filename, "r") as f:
             return json.load(f)
 
-    def searchSinceUntil(self, keyword, initialDate, finalDate):
-        if any(keyword in s for s in
+    def fetchTweets(self, initialDate, finalDate, keywordCollection):
+        if any(keywordCollection[0] in s for s in
                BailandoTVShow().getKeywords()):
             filename = "bailandoTweets"
         else:

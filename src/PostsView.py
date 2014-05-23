@@ -3,11 +3,13 @@ from Observer import *
 class PostsView(Observer): 
     def __init__(self):
         self._qPosts = []
-        
+        self._bySentimentFilter = ['Positivo']
+
     def update(self, qualifiedPosts):
-        # for qpost in qualifiedPosts:
-        #     if not qpost.isNegative():
-                self._qPosts = qualifiedPosts
+        self._qPosts = qualifiedPosts
 
     def getPosts(self):
-        return self._qPosts
+        return [i for i in self._qPosts if str(i.getSentiment()) in self._bySentimentFilter]
+       
+    def setSentimentFilter(self, aFilter):
+        self._bySentimentFilter = aFilter
