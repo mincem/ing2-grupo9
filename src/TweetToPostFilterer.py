@@ -21,7 +21,7 @@ class TweetToPostFilterer(BasicPostFilterer):
             posts.append(self.JsonToPost(tweet))
         return posts
 
-    def getTVShow(self)
+    def getTVShow(self):
         return self._tvShow
 
     

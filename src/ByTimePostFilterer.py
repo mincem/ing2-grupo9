@@ -1,6 +1,6 @@
 from PostFiltererDecorator import PostFiltererDecorator
 from Post import Post
-from Twitter import *
+from TwitterAdapter import *
 from TVShow import TVShow
 
 class ByTimePostFilterer(PostFiltererDecorator):
