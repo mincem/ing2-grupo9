@@ -18,7 +18,7 @@ class ShowWindow(tk.Toplevel):
         ratingDateLabel = tk.Label(self, text="Fecha de Rating (Formato DD/MM/AAAA)")
         ratingDateLabel.pack()
         ratingDate = tk.Entry(self, bd=2)
-        ratingDate.insert(0,"11/11/2011")
+        ratingDate.insert(0,"29/04/2014")
         ratingDate.pack()
         ratingButton = tk.Button(self, text="VER RATING",
                                  command=lambda: self.createRatingWindow(show,ratingDate.get()))
@@ -26,12 +26,12 @@ class ShowWindow(tk.Toplevel):
         popularityStartDateLabel = tk.Label(self, text="Popularidad desde (Formato DD/MM/AAAA)")
         popularityStartDateLabel.pack()
         popularityStartDate = tk.Entry(self, bd=2)
-        popularityStartDate.insert(0,"11/11/2011")
+        popularityStartDate.insert(0,"20/04/2014")
         popularityStartDate.pack()
         popularityEndDateLabel = tk.Label(self, text="Hasta (Formato DD/MM/AAAA)")
         popularityEndDateLabel.pack()
         popularityEndDate = tk.Entry(self, bd=2)
-        popularityEndDate.insert(0,"12/11/2011")
+        popularityEndDate.insert(0,"29/04/2014")
         popularityEndDate.pack()
         popularityButton = tk.Button(self, text="VER POPULARIDAD",
                                      command=lambda: self.createPopularityWindow(show,popularityStartDate.get(),popularityEndDate.get()))
@@ -82,10 +82,14 @@ class ShowWindow(tk.Toplevel):
     
 
     def makeErrorBox(self,error):
-        errorBox = tk.Toplevel(self)
+        errorBox = tk.Toplevel(self, padx = 20, pady= 20)
         errorBox.title("Error")
+        titleLabel = tk.Label(errorBox,text="ERROR", font=("",25))
+        titleLabel.pack()
         errorLabel = tk.Label(errorBox, text=str(error))
         errorLabel.pack()
+        closeButton = tk.Button(errorBox, text = "CERRAR", command = lambda:errorBox.destroy())
+        closeButton.pack()
 
     def oneDateValidations(self,dateText):
         valid = self.validateFormat(dateText)
