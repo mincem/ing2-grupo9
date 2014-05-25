@@ -1,3 +1,6 @@
+import datetime
+import time
+
 class TVShow:
 
     def __init__(self, name, keywords, airingDays, startTime, endTime):
@@ -38,8 +41,8 @@ class BailandoTVShow(TVShow):
     def __init__(self):
         keywords = ["Bailando2014", "cuervoTinelli", "#Showmatch2014"]
         airingDays = ["lunes"]
-        startTime = "22:30"
-        endTime = "23:59"
+        startTime = datetime.time(22, 30)
+        endTime = datetime.time(23, 59)
         super(BailandoTVShow, self).__init__("Bailando por un sueño", 
                                               keywords,
                                               airingDays, startTime, 
@@ -51,8 +54,8 @@ class Seis78TVShow(TVShow):
         keywords = ["678elprograma", "678", 
                     "periodismo militante"]
         airingDays = ["lunes"]
-        startTime = "21:00"
-        endTime = "22:30"
+        startTime = datetime.time(21, 00)
+        endTime = datetime.time(22, 30)
         super(Seis78TVShow, self).__init__("678", 
                                            keywords,
                                            airingDays, startTime,

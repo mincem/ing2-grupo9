@@ -2,6 +2,8 @@ from PostFiltererDecorator import PostFiltererDecorator
 from Post import Post
 from TwitterAdapter import *
 from TVShow import TVShow
+import time
+import datetime
 
 class ByTimePostFilterer(PostFiltererDecorator):
 
@@ -15,6 +17,9 @@ class ByTimePostFilterer(PostFiltererDecorator):
         originalPosts = self._aPostFilterer.getPosts()
         posts = []
         for post in originalPosts:
-            if (post.getDateTime().time() >= self._startTime and post.getDateTime().time() <= self._endTime):
+            hour = post.getDateTime().tm_hour
+            minutes = post.getDateTime().tm_min
+            time = datetime.time(hour, minutes)
+            if (time >= self._startTime and time <= self._endTime):
                 posts.append(post)
         return posts

@@ -17,8 +17,8 @@ class PostProvider:
     def postsFromDuringAirtime(self, tvShow, aDate):
         """ Para filtrar los de un solo día se llama con ese mismo día
             como comienzo y como final """
-        #untilDate = aDate + datetime.timedelta(days=1)
-        basicFilterer = TweetToPostFilterer(aDate, aDate, tvShow)
+        untilDate = aDate + datetime.timedelta(days=1)
+        basicFilterer = TweetToPostFilterer(aDate, untilDate, tvShow)
         startTime = basicFilterer.getTVShow().getStartTime()
         endTime = basicFilterer.getTVShow().getEndTime()
         timeFilterer = ByTimePostFilterer(basicFilterer, startTime, endTime)

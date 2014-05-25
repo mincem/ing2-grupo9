@@ -2,6 +2,7 @@ from BasicPostFilterer import BasicPostFilterer
 from Post import Post
 from TwitterAdapter import *
 from TVShow import TVShow
+import time
 
 class TweetToPostFilterer(BasicPostFilterer):
 
@@ -27,7 +28,7 @@ class TweetToPostFilterer(BasicPostFilterer):
     def JsonToPost(self, tweetJson):
             # Revisar esta función cuando esté el adapter
             author = tweetJson['user']['screen_name']
-            dateTime = tweetJson['created_at']
+            dateTime = time.strptime(tweetJson['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
             content = tweetJson['text']
             tvShow = self._tvShow
             return Post(content, dateTime, author, tvShow)
