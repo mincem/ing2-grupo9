@@ -32,14 +32,14 @@ class MyTVShows():
 
     def getShows(self):
         return self._shows
-    
+
     def len(self):
         return len(self.getShows())
 
 class BailandoTVShow(TVShow):
 
     def __init__(self):
-        keywords = ["Bailando2014", "cuervoTinelli", "#Showmatch2014"]
+        keywords = ["@Bailando2014", "#Bailando_2014", "ShowMatch"]
         airingDays = ["lunes"]
         startTime = datetime.time(22, 30)
         endTime = datetime.time(23, 59)
@@ -51,8 +51,7 @@ class BailandoTVShow(TVShow):
 class Seis78TVShow(TVShow):
 
     def __init__(self):
-        keywords = ["678elprograma", "678", 
-                    "periodismo militante"]
+        keywords = ["@678elprograma", "#678Domingo"]
         airingDays = ["lunes"]
         startTime = datetime.time(21, 00)
         endTime = datetime.time(22, 30)
