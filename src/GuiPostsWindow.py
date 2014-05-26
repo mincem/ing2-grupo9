@@ -2,6 +2,7 @@
 
 import tkinter as tk
 import datetime
+import time
 from PostsView import *
 
 class PostsWindow(tk.Toplevel):
@@ -62,14 +63,19 @@ class PostsWindow(tk.Toplevel):
         _author = aPost.getAuthor()
         _content = aPost.getContent()
 
-        _dateString = "Fecha: " + str(_date)
+        _dateString = "Fecha: " + time.strftime('%d/%m/%Y %H:%M:%S', _date)
         _sentimentString = "\t Calificación: " + str(_sentiment) + "\n"
         _authorString = "Autor: " + str(_author) + "\n"
         _contentString = str(_content) + "\n\n"
 
         
         for data in [_dateString,_sentimentString,_authorString,_contentString]:
-            textArea.insert(tk.INSERT, str(data))
+            try: textArea.insert(tk.INSERT, data)
+            except tk.TclError:
+                isValidForTk = lambda character: ord(character) <= 2000
+                cleanData = ''.join(filter(isValidForTk, data))
+                textArea.insert(tk.INSERT, cleanData)
+                    
 
     def createSentimentOptions(self, positive, negative, neutral):
         frame = tk.LabelFrame(self, text="Filtro de tweets")
@@ -90,23 +96,3 @@ class SentimentOption(tk.Checkbutton):
                              width = 8)
         
         
-
-#Clase vieja de display de posts, ahora lo hago de otra forma
-'''
-class PostDisplay(tk.LabelFrame):
-    def __init__(self,master,aPost):
-        super().__init__(master, text=aPost.author())
-        
-        upperFrame = tk.Frame(self)
-        upperFrame.pack(side = tk.TOP)
-        date = aPost.date().strftime("%d/%m/%Y")
-        dateView = tk.Label(upperFrame, text=date)
-        dateView.pack(side = tk.LEFT)
-        sentimentView = tk.Label(upperFrame, text=aPost.sentiment())
-        sentimentView.pack(side = tk.RIGHT)
-        
-        lowerFrame = tk.Frame(self)
-        lowerFrame.pack(side = tk.BOTTOM)
-        contentView = tk.Label(lowerFrame, text=aPost.content(), wraplength=300)
-        contentView.pack(side = tk.BOTTOM) 
-'''
