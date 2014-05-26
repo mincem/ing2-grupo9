@@ -2,6 +2,8 @@
 
 import tkinter as tk
 import datetime
+import calendar
+import time
 from PopularityMeter import *
 from RatingMeter import *
 from MeasureView import *
@@ -40,11 +42,12 @@ class ShowWindow(tk.Toplevel):
     def createRatingWindow(self, show, ratingDate):
         if self.validateFormat(ratingDate):
             askedDate = datetime.datetime.strptime(ratingDate, '%d/%m/%Y').date()
-            ratingMeter = RatingMeter(show, askedDate)
-            aMeasureView = MeasureView()
-            ratingMeter.subscribe(aMeasureView)
-            ratingMeter.measure()
-            window = RatingWindow(self,show, askedDate, askedDate, ratingMeter, aMeasureView)
+            if self.validateAiringDay(askedDate, show):
+                ratingMeter = RatingMeter(show, askedDate)
+                aMeasureView = MeasureView()
+                ratingMeter.subscribe(aMeasureView)
+                ratingMeter.measure()
+                window = RatingWindow(self,show, askedDate, askedDate, ratingMeter, aMeasureView)
 
     def createPopularityWindow(self, show, popularityStartDate,popularityEndDate): 
         if self.twoDateValidations(popularityStartDate,popularityEndDate):
@@ -55,6 +58,14 @@ class ShowWindow(tk.Toplevel):
             popularityMeter.subscribe(aMeasureView)
             popularityMeter.measure()
             window = PopularityWindow(self,show, startDate, endDate, popularityMeter, aMeasureView)
+
+    def validateAiringDay(self,askedDate, show):
+        for day in show.getAiringDays():
+            if calendar.weekday(askedDate.year, askedDate.month, askedDate.day) == time.strptime(day, '%a').tm_wday:
+                return True
+        error = ValueError("Date is not a show's airing day ")
+        self.makeErrorBox(error)
+        return False
 
     def validateFormat(self,dateText):
         try:

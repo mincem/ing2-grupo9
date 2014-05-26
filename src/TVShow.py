@@ -40,7 +40,7 @@ class BailandoTVShow(TVShow):
 
     def __init__(self):
         keywords = ["@Bailando2014", "#Bailando_2014", "ShowMatch"]
-        airingDays = ["lunes"]
+        airingDays = ['Mon','Tue','Thu', 'Fri']
         startTime = datetime.time(22, 30)
         endTime = datetime.time(23, 59)
         super(BailandoTVShow, self).__init__("Bailando por un sueño", 
@@ -52,7 +52,7 @@ class Seis78TVShow(TVShow):
 
     def __init__(self):
         keywords = ["@678elprograma", "#678Domingo"]
-        airingDays = ["lunes"]
+        airingDays = ['Mon','Tue','Wed','Thu', 'Fri', 'Sun']
         startTime = datetime.time(21, 00)
         endTime = datetime.time(22, 30)
         super(Seis78TVShow, self).__init__("678", 

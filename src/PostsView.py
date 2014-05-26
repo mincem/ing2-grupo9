@@ -10,6 +10,9 @@ class PostsView(Observer):
 
     def getPosts(self):
         return [i for i in self._qPosts if str(i.getSentiment()) in self._bySentimentFilter]
-       
+
     def setSentimentFilter(self, aFilter):
         self._bySentimentFilter = aFilter
+
+    def getTotalPosts(self):
+        return len(self._qposts)
