@@ -1,0 +1,99 @@
+%%%% ATRIBUTO DE CALIDAD %%%%
+
+\newcommand{\QA}[8] {
+\item
+  Atributo de \textbf{#1}:\\\textit{``#2''}
+
+  \begin{itemize}
+  \item
+    Fuente: #3
+  \item
+    Estímulo: #4
+  \item
+    Artefacto: #5
+  \item
+    Entorno: #6
+  \item
+    Respuesta: #7
+  \item
+    Medida: #8
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Atributos de calidad}
+
+% Descripción de atributos de calidad identificados, a través de escenarios, incluyendo prioridades relativas.
+
+% %%%% PLANTILLA PARA ESCENARIO %%%%
+% 
+% \QA
+% 	{} % tipo de atributo
+% 	{} % texto del atributo
+% 	{} % fuente
+% 	{} % estímulo
+% 	{} % artefacto
+% 	{} % entorno
+% 	{} % respuesta
+% 	{} % medida de la respuesta
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+  \begin{enumerate}
+
+
+\QA
+{Modificabilidad} % tipo de atributo
+{Es cada vez más importante el público multilingüe, por lo que debemos adaptarnos a la posibilidad de que mensajes en distintos idiomas se refieran a una misma emisión de un programa.} % texto del atributo
+{Administrador del sistema} % fuente
+{Quiere agregar soporte para un programa de TV en un nuevo idioma} % estímulo
+{Interfaz} % artefacto
+{En tiempo de ejecución} % entorno
+{Se realiza el cambio sin afectar el resto de la aplicación} % respuesta
+{Sólo se modifican los módulos correspondientes a los programas de TV} % medida de la respuesta
+
+\QA
+{Usabilidad} % tipo de atributo
+{Se quiere tener una interfaz bonita y fácil de usar, para tener mayor aceptación entre el público.} % texto del atributo
+{Usuario de la aplicación} % fuente
+{Desea ver el rating actual de un programa de TV} % estímulo
+{Sistema} % artefacto
+{En tiempo de ejecución} % entorno
+{Se provee una interfaz de usuario fácil de entender y usar} % respuesta
+{El 90\% de los usuarios puede realizar la operación al usar por primera vez la aplicación, y demoran menos de 30 segundos} % medida de la respuesta
+
+\QA
+{Seguridad (Confidencialidad)} % tipo de atributo
+{Los nodos intercambiarán datos entre sí, y la información que se transmite entre los nodos debe ser segura y no poder alterarse desde afuera.} % texto del atributo
+{Atacante externo} % fuente
+{Captura un mensaje con información enviada entre nodos e intenta acceder a los datos confidenciales} % estímulo
+{Datos del sistema} % artefacto
+{Operación normal online} % entorno
+{El usuario no puede decodificar los datos} % respuesta
+{En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
+
+\QA
+{Disponibilidad} % tipo de atributo
+{La comunicación con el sistema de análisis de sentimiento SQPost suele fallar. Siempre que sea posible, se utilizará SQPost. En caso contrario, el sistema debe seguir respondiendo, y realizar el análisis con el sistema propio.} % texto del atributo
+{Interna del sistema} % fuente
+{Se recibe un timeout} % estímulo
+{Componente de SQPost} % artefacto
+{Normal} % entorno
+{Cambiar a modo de emergencia con análisis de sentimiento propio} % respuesta
+{El sistema no tarda más de 1 seg. en cambiar a modo de emergencia y continuar operando, desde que se descubrió la falla} % medida de la respuesta
+
+\QA
+{Disponibilidad} % tipo de atributo
+{El sistema siempre debe estar disponible, aunque uno de los nodos no esté funcionando correctamente.} % texto del atributo
+{Externa} % fuente
+{No hay respuesta del nodo más cercano} % estímulo
+{Canal de comunicación} % artefacto
+{Normal} % entorno
+{Se pide información al nodo replicador} % respuesta
+{Se obtiene respuesta con demora menor que el doble del tiempo de respuesta normal} % medida de la respuesta
+
+
+\end{enumerate}
+
