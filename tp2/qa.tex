@@ -110,7 +110,7 @@
   {Captura un mensaje con información enviada entre nodos e intenta acceder a los datos confidenciales} % estímulo
   {Datos del sistema} % artefacto
   {Operación normal online} % entorno
-  {El usuario no puede decodificar los datos} % respuesta
+  {El atacante no puede decodificar los datos} % respuesta
   {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
 
 \QA
@@ -122,6 +122,36 @@
   {Normal} % entorno
   {Cambiar a modo de emergencia con análisis de sentimiento propio} % respuesta
   {El sistema no tarda más de 1 seg. en cambiar a modo de emergencia y continuar operando, desde que se descubrió la falla} % medida de la respuesta
+
+\QA
+  {Seguridad (Confidencialidad)} % tipo de atributo
+  {La información almacenada dentro de los nodos debe ser segura} % texto del atributo
+  {Atacante externo} % fuente
+  {Logra acceder a alguno de los repositorios de un nodo que contiene datos confidenciales} % estímulo
+  {Uno de los respositorios de un nodo} % artefacto
+  {Operación normal} % entorno
+  {El atacante no puede decodificar los datos} % respuesta
+  {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
+  
+\QA
+  {Seguridad (Confidencialidad)} % tipo de atributo
+  {La información almacenada dentro de los SmartTV debe ser segura} % texto del atributo
+  {Atacante externo} % fuente
+  {Logra acceder a los datos confidenciales que almacena un SmartTV} % estímulo
+  {Datos de SmartTV} % artefacto
+  {Operación normal} % entorno
+  {El atacante no puede decodificar los datos confidenciales} % respuesta
+  {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
+
+\QA
+   {} % tipo de atributo
+   {} % texto del atributo
+   {} % fuente
+   {} % estímulo
+   {} % artefacto
+   {} % entorno
+   {} % respuesta
+   {} % medida de la respuesta
 
 
 
