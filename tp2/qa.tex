@@ -123,6 +123,35 @@
   {Cambiar a modo de emergencia con análisis de sentimiento propio} % respuesta
   {El sistema no tarda más de 1 seg. en cambiar a modo de emergencia y continuar operando, desde que se descubrió la falla} % medida de la respuesta
 
+\QA
+  {Performance} % tipo de atributo
+  {Comportamiento esperado en cuanto procesamiento de imágenes obtenidas por la cámara del SmartTv} % texto del atributo
+  {Externa} % fuente
+  {El SmartTv sacá fotografías que serán tenidas en cuenta para mejorar el análisis del rating} % estímulo
+  {Sistema de procesamiento de imágenes} % artefacto
+  {Normal} % entorno
+  {Se delega el procesamiento necesario al Hardware del SmartTv permitiendo una mayor descentralización y capacidad de computo} % respuesta
+  {El sistema logra procesar para un determinado televidente una foto cada diez segundos} % medida de la respuesta
+
+\QA
+  {Performance} % tipo de atributo
+  {El procesamiento de información deberá tardar menos de un segundo} % texto del atributo
+  {Externa} % fuente
+  {El cliente hace un pedido de Rating o Popularidad} % estímulo
+  {Sistema} % artefacto
+  {Normal} % entorno
+  {El sistema procesa el pedido y entrega una respuesta} % respuesta
+  {El 90 porciento de las veces el pedido es entregado en tiempo y forma} % medida de la respuesta
+
+\QA
+  {Performance} % tipo de atributo
+  {El sistema responda efectivamente a 100? pedidos por segundo} % texto del atributo
+  {Externa} % fuente
+  {Varios clientes hacen pedidos en una ventana de 1 segundo} % estímulo
+  {Sistema} % artefacto
+  {Normal} % entorno
+  {El sistema atiende los primeros pedidos de forma normal y pasa a modo sobrecargado, donde no responde ciertos pedidos hasta que se normalice la situación} % respuesta
+  {El sistema responde 100 pedidos por segundo de forma normal} % medida de la respuesta
 
 
 
