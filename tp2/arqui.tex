@@ -2,3 +2,64 @@
 \section{Arquitectura}
 
 % Documento que describa las principales decisiones de arquitectura que fueron evaluadas y la decisión que se tomó en cada caso. Se deberá incluir una o más vistas que describan la visión general de cómo será el producto en el nivel de la arquitectura.
+
+\subsection{Vista principal de componentes y conectores}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/main.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+
+\subsection{Conector que rutea pedidos}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/conector.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+El cliente se conecta a un servidor web a través de la página de internet del sistema y realiza un pedido. Este pedido debe viajar al nodo más cercano geográficamente a su ubicación. Para esto primero debe pasar por un ruteador de pedidos para que lo diriga.
+El pedido llega al manejador, quien mantiene abierta la comunicación con el cliente hasta que llegue la respuesta. El pedido, luego, es etiquetado tal que el resto de los componentes puedan identificarlo a lo largo del flujo de datos. El derivador de pedidos indentifica la IP correspondiente al mismo y la vincula con el nodo al que debería ir. Luego, verifica el estado de dicho nodo y envía el pedido. Si no está activo, entonces, lo envía al siguiente nodo más cercano.
+El supervisor de estado es un componente que controla períodicamente si los nodos están activos. Si detecta que algún nodo no responde avisa a los responsables a mediante el envío de un email, para que sea reparado.
+
+
+Cuando llega la respuesta el sincronizador se encarga de asociarla con el cliente correspondiente utilizando su etiqueta. De esta forma el manejador puede devolver la respuesta al cliente y cerrar la conexión.
+
+\subsection{Procesador de pedidos}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/procpedidos.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+Cuando llega un pedido de un usuario de la aplicación al nodo, este componente lo recibe y verifica que las fechas ingresadas tengan un formato válido y que 
+además correspondan a un tiempo válido que se pueda consultar. En el caso de que se haya ingresado un intervalo de tiempo, se verifica que este bien constituido (que el inicio sea anterior al final). Luego se verifica que el programa de televisión pedido sea parte de la grilla del sistema, para lo cual se consulta al manejador de la grilla de programación. Si el pedido falla alguno de estos test se envía un mensaje de error que se propaga hasta el receptor de errores quien envía dicho mensaje al manejador de errores para que lo muestre por pantalla. Si el pedido no es filtrado en esta instancia, entonces, pasarña por el clasificador de pedidos que lo etiqueta como pedido de Rating o Popularidad. Una vez hecho esto, se encola el pedido en el distribuidor de pedidos de posts.
+
+\subsection{Distribuidor de pedidos de posts}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/distribuidor.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+Este componente tiene la responsabilidad de pedir los posts necesarios para resolver el pedido del usuario. En primer lugar, se verifica la zona de emisión del programa que fue solicitado para saber si necesita conseguir posts de otras regiones (manejadas por otros nodos) y si necesita posts locales. Se conecta con los comuinicadores para hacer los pedidos correspondientes.
+
+\subsection{Administrador de posts locales}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/adminlocal.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+Cuando llega un pedido de post a este componente lo primero que se hace es verificar si es un pedido de rating o popularidad. 
+Si es un pedido de rating, el obtenedor de post locales actuales revisa la caché correspondiente al ratingpara obtener los posts que necesita, si no los encuentra hace un llamada al compilador de pedidos de posts online. Este organiza el pedido que debe hacerse a las redes sociales y servicios de internet y le envía dicho pedido al administrador de proveedores. Este administrador conoce a cada uno de los proveedores y cada uno de ellos puede conectarse a un determinado sitio de internet. El administrador le pasa el pedido a todos los proveedores. Cada uno de ellos busca en su sitio de internet y responde con qualified posts. Luego, el administrador reune todos los resultados y los devuelve al compilador de pedidos de posts online, que a su vez los devuelve al lector de caché. En este momento el lector caché tiene los resultados del rating correspondientes al nodo local que luego serán sincronizados con los otros resultados.
+
+Si es un pedido de popularidad, se envía al obtenedor de posts locales de popularidad que posee un funcionamiento similar salvo que si recibe datos provenientes de internet las guarda en la cache de popularidad.
+
+Con respecto a la caché del rating, se actualizará constantemente según los programas que esté al aire. La actualización de la caché no depende de los pedidos de rating que se realicen. Es esperable que los pedidos de rating siempre puedan encontrarse en la caché, siempre que esta esté disponible.
+La caché de popularidad, en cambio, se actualizará a medida que se realicen pedidos con algún método que priorice las búsquedas más frecuentes. No podemos pretender que los resultados de las búsquedas estén siempre en caché debido a que hay un gran número de consultas posibles, por lo tanto será habitual que para este tipo de pedidos se acceda a las redes sociales. 
