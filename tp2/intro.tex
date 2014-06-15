@@ -2,3 +2,13 @@
 \section{Introducción}
 
 % Alguien va a tener que escribir algo acá. - M.I.
+
+Este trabajo es una descripción de la arquitectura del proyecto \emph{Rating del Siglo XXI}. Se pretende modelar una aplicación que calcule el rating y la popularidad de un programa de televisión a través de la participación de los televidentes en las redes sociales y otros sitios online de espectáculos. 
+
+La información obtenida de cada red social se almacena en el sistema en un formato interno al que le damos el nombre de \emph{Post}, que consiste en un mensaje, con autor y fecha de publicación, en el que se menciona un determinado programa de TV. Estos posts son clasificados por un algoritmo de Sentiment Analysis, que los clasifica como positivos, negativos o neutros.
+
+El rating de un programa de TV se calcula a a partir de los posts obtenidos para el programa durante su horario de emisión, y de la actitud de estos mensajes respecto del programa. La popularidad se refiere a la participación de los usuarios en cualquier horario, durante un período determinado de tiempo.
+
+Los usuarios del sistema podrán acceder a su funcionalidad a través de Internet. El procesamiento de toda la información se realiza en uno de los servidores centrales, llamados \emph{nodos}, que corresponden a regiones geográficas de América Latina. Los usuarios se conectarán con la aplicación para realizar consultas, y desde los nodos se producirá la respuesta, que se envía al cliente.
+
+En una etapa más avanzada de desarrollo se agregará al sistema una funcionalidad para recibir información de Sentiment Analysis de fotos tomadas por las cámaras de Smart TVs, y usarla para complementar los valores obtenidos con la funcionalidad original.
