@@ -13,7 +13,7 @@
 
 \begin{figure}[H]
 \centering
-\includegraphics{graph/cartilla.pdf}
+\includegraphics[width=0.5\textwidth]{graph/cartilla.pdf}
 %\caption{Post Filterer}
 \end{figure}
 
@@ -82,3 +82,13 @@ La caché de popularidad, en cambio, se actualizará a medida que se realicen pe
 El sentiment analyisis por imágenes es una funcionalidad del sistema que se agrega a la obtención de datos a través de posts, y ofrece mayor cantidad de datos para operar. La aplicación funcionará en su mayor parte fuera de los nodos, distribuida entre los sistemas de los clientes que ofrecen datos. (Es decir, se ejecutará dentro de los Smart TVs de los usuarios que activen el producto.) El sistema es activado por un timer, que periódicamente indica al driver de la cámara fotográfica del dispositivo que tome una foto y la ponga en cola para procesarla. El procesamiento comienza con el etiquetado de la información, en el cual se le agrega un timestamp y el programa de TV que se está mirando (que un televisor digital puede obtener a partir de la grilla). Luego se procesa la foto en sí, y se obtiene la información de número de personas mirando y datos de cada una, así como su sentimiento respecto del programa de TV.
 
 Los datos anónimos obtenidos de las imágenes se transmiten al nodo a través de una comunicación segura, con encriptación, y se retorna un ACK. La aplicación que está incluida en los televisores de una región está programada para comunicarse directamente con el nodo correspondiente a dicha región; si el nodo en algún momento está inactivo, se dejará temporalmente de recibir datos de imágenes para esa zona. Dentro del nodo, el persistidor de datos se encarga de guardar los datos recibidos para ser usados en futuras consultas.
+
+\subsection{Sincronizador}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{graph/sincro.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+El sincronizador recibe datos de tres fuentes distintas: posts locales, es decir, del área correspondiente al nodo que está ejecutando el pedido; posts extranjeros, que fueron procesados y calificados en los nodos de otras áreas, y sentimiento por imágenes, que proviene del sistema externo y trae sentimientos, pero no mensajes. Todos esos datos deben reunirse para cada pedido. Es posible sincronizar todos los datos del mismo pedido gracias a las etiquetas que se aplican al principio del flujo del sistema, las cuales identificana quién pertenece cada dato. Cuando las tres fuentes comunican que ya enviaron todos los datos posibles para un pedido determinado, el sincronizador los envía al calculador para que los procese.
