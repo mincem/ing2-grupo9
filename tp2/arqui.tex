@@ -103,6 +103,16 @@ El sentiment analyisis por imágenes es una funcionalidad del sistema que se agr
 
 Los datos anónimos obtenidos de las imágenes se transmiten al nodo a través de una comunicación segura, con encriptación, y se retorna un ACK. La aplicación que está incluida en los televisores de una región está programada para comunicarse directamente con el nodo correspondiente a dicha región; si el nodo en algún momento está inactivo, se dejará temporalmente de recibir datos de imágenes para esa zona. Dentro del nodo, el persistidor de datos se encarga de guardar los datos recibidos para ser usados en futuras consultas.
 
+\subsection{Obtenedor de Sentiment Analyisis por imágenes}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{graph/obtenedorimg.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+El Obtenedor de sentimiento por imágenes es uno de los recursos para obtener datos para un pedido. El distribuidor de pedidos de posts le informa cuando llega un pedido, que puede provenir desde el mismo nodo o de otro. El lector de repositorio encuentra los datos que necesita para cumplir el pedido, y el distribuidor de respuesta los envía a quien los necesita, según la etiqueta que tenía el pedido.
+
 \subsection{Sincronizador}
 
 \begin{figure}[H]
