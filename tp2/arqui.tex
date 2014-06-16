@@ -78,6 +78,19 @@ Si es un pedido de popularidad, se envía al obtenedor de posts locales de popul
 Con respecto a la caché del rating, esta se actualizará constantemente según los programas que estén al aire. La actualización de la caché no depende de los pedidos de rating que se realicen. Es esperable que los pedidos de rating siempre puedan encontrarse en la caché, siempre que esta esté disponible.
 La caché de popularidad, en cambio, se actualizará a medida que se realicen pedidos con algún método que priorice las búsquedas más frecuentes. No podemos pretender que los resultados de las búsquedas estén siempre en caché debido a que hay un gran número de consultas posibles, por lo tanto será habitual que para este tipo de pedidos se acceda a las redes sociales. 
 
+\subsection{Administrador de posts extranjeros}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/administradorPostsExtranjeros.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+Una vez que el distribuidor encuentra un pedido que requiera la comunicación con otros nodos, el administrador de posts extranjeros será el encargado de obtener la respuesta. Antes de explicar este componente es necesario aclarar que el cada nodo tiene replicado a otro nodo en su totalidad, por lo que cuando se pidan posts que se corresponden a otros nodos, primero se realiza un búsqueda en este repositorio réplica en el nodo local. Si la búsqueda es exitosa, entonces se comunica la respuesta al sincronizador de posts para calcular. En otro caso, el pedido se realiza al importador de datos. Este es el componente que se comunica efectivamente con el nodo necesario, mediante una comunicación cliente-servidor de forma segura. El pedido es recibido por el Exportador de datos, quien lo encola en el distribuidor de pedidos, pero ahora referido al nodo extranjero. Luego se etiqueta como un pedido proveniente de un nodo extranjero y se envía a los componentes correspondientes para completar la respuesta. Esta vuelve al exportador de datos desde el obtenedor de sentimientos por imágenes y el administrador de posts locales, para finalmente regresar al primer nodo, al importador de datos, al lector de caché y luego al sincronizador.
+
+
+El repositorio de datos extranjeros, como habíamos dicho, replica los datos de uno de los nodos, para asegurarnos de que al momento que se caiga cualquiera de los mencionados, entonces el sistema siga funcionando. Por ello, cuando esto pase se pasará a una condición degradada del sistema y la cantidad de pedidos resuletos por minuto se verá disminuída. Para mantener este repositorio sincronizado períodicamente el actualizador de post extranjeros hará los pedidos necesarios.
+
 \subsection{Subsistema de Sentiment Analyisis}
 
 \begin{figure}[H]
