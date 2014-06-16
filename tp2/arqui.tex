@@ -35,6 +35,12 @@ Cuando llega la respuesta el sincronizador se encarga de asociarla con el client
 
 Es importante destacar que el ruteador de pedidos está replicado, de manera que siempre que deje de responder puede ser reemplazado inmediatamente y seguir operando. Es vital mantener este componente en funcionamiento ya que sin él no puede realizarse la comunicación con los servidores.
 
+
+\subsection{Conexión de administrador}
+
+Los administradores del sistema son usuarios especiales que tienen acceso a la grilla de programación, para agregar, eliminar o modificar los programas de TV que el sistema conoce, así como sus características y propiedades. El administrador se conecta directamente a uno de los nodos y edita los programas de TV del área correspondiente a dicho nodo. La conexión se realiza de forma segura, y el administrador debe estar autenticado para poder operar.
+
+
 \subsection{Procesador de pedidos}
 
 \begin{figure}[H]
