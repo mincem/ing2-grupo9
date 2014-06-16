@@ -94,3 +94,13 @@ Los datos anónimos obtenidos de las imágenes se transmiten al nodo a través d
 \end{figure}
 
 El sincronizador recibe datos de tres fuentes distintas: posts locales, es decir, del área correspondiente al nodo que está ejecutando el pedido; posts extranjeros, que fueron procesados y calificados en los nodos de otras áreas, y sentimiento por imágenes, que proviene del sistema externo y trae sentimientos, pero no mensajes. Todos esos datos deben reunirse para cada pedido. Es posible sincronizar todos los datos del mismo pedido gracias a las etiquetas que se aplican al principio del flujo del sistema, las cuales identificana quién pertenece cada dato. Cuando las tres fuentes comunican que ya enviaron todos los datos posibles para un pedido determinado, el sincronizador los envía al calculador para que los procese.
+
+\subsection{Visualizador de resultados}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/visualizador.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+El visualizador de resultados se encarga de darle formato a la respuesta que recibirá el cliente, ya sea un resultado de rating o popularidad, un mensaje de error, debido a que la consulta del cliente fue invalidada en algún momento por el procesador de pedidos, o un mapa donde se visualizan los resultados. Para ello, el visualizador cuenta con un administrador cola de resultados. A medida que se van desencolando dichos mensajes, estos son comunicados al constructor de respuesta, que se encarga de darles el formato correspondiente según la UI que se esté utilizando o, por ejemplo, un correcto mensaje de error. También se puede comunicar con el obtenedor de mapas, quien provee de un mapa, ya sea buscándolo en repositorio local o en algún servicio de internet como Google Maps. Tal vez este repositorio no sea de tanta utilidad debido al cambio constante del rating, pero tal afirmación habría que hacerla luego de un análisis estadístico de los pedidos de los usuarios. Por último, se envía la respuesta al ruteador de pedidos quien la comunicará al usuario.
