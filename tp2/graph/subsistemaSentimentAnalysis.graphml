@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
-  <!--Created by yFiles for Java 2.11-->
+  <!--Created by yEd 3.12.2-->
   <key for="graphml" id="d0" yfiles.type="resources"/>
   <key for="port" id="d1" yfiles.type="portgraphics"/>
   <key for="port" id="d2" yfiles.type="portgeometry"/>
@@ -17,10 +17,10 @@
     <node id="n0">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="279.87096774193515" width="721.0443548387098" x="116.0" y="254.87096774193515"/>
+          <y:Geometry height="184.121940504581" width="630.9276233212" x="140.78210116731515" y="280.7795280532192"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="5.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="18" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="26.0517578125" modelName="internal" modelPosition="tl" textColor="#000000" visible="true" width="352.0732421875" x="4.0" y="4.0">SUBSISTEMA DE SENTIMENT ANALYSIS</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="18" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="24.953125" modelName="internal" modelPosition="bl" textColor="#000000" visible="true" width="352.92578125" x="4.0" y="155.168815504581">SUBSISTEMA DE SENTIMENT ANALYSIS</y:NodeLabel>
           <y:Shape type="rectangle"/>
         </y:ShapeNode>
       </data>
@@ -28,11 +28,13 @@
     <node id="n1">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.small_entity">
-          <y:Geometry height="66.0" width="117.0" x="332.41935483870975" y="346.7419354838703"/>
+          <y:Geometry height="89.29961089494162" width="99.0" x="309.8901719593323" y="319.7069160286174"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="33.40234375" modelName="custom" textColor="#000000" visible="true" width="104.04296875" x="6.478515625" y="16.298828125">Selector algoritmo 
-sentiment analysis<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="59.875" modelName="custom" textColor="#000000" visible="true" width="80.46484375" x="9.267578125" y="14.71230544747084">Selector de
+algoritmo de
+Sentiment 
+Analysis<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -48,10 +50,10 @@ sentiment analysis<y:LabelModel>
     <node id="n2">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.small_entity">
-          <y:Geometry height="51.0" width="125.0" x="505.41935483870975" y="442.7419354838703"/>
+          <y:Geometry height="51.0" width="139.64396887159535" x="448.98608635621946" y="369.3064516129027"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="48.103515625" modelName="custom" textColor="#000000" visible="true" width="118.71484375" x="3.142578125" y="1.4482421875">Monitor/Comunicador
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="133.45703125" x="3.093468810797617" y="2.546875">Monitor/Comunicador
 servicio externo
 SQPost<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -69,11 +71,10 @@ SQPost<y:LabelModel>
     <node id="n3">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.small_entity">
-          <y:Geometry height="51.0" width="125.0" x="505.41935483870975" y="284.7419354838703"/>
+          <y:Geometry height="32.93190661478599" width="125.0" x="448.9860863562194" y="319.70691602861746"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="33.40234375" modelName="custom" textColor="#000000" visible="true" width="58.017578125" x="33.4912109375" y="8.798828125">Algoritmo 
-local<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="94.28125" x="15.359375" y="7.481578307393022">Algoritmo local<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -89,10 +90,11 @@ local<y:LabelModel>
     <node id="n4">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.small_entity">
-          <y:Geometry height="66.0" width="125.0" x="137.41935483870975" y="346.7419354838703"/>
+          <y:Geometry height="51.0" width="99.0" x="162.2014560060249" y="338.8567214760882"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#000000" visible="true" width="110.716796875" x="7.1416015625" y="23.6494140625">Calificador de Posts<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="67.802734375" x="15.5986328125" y="9.53125">Calificador
+de Posts<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -108,10 +110,10 @@ local<y:LabelModel>
     <node id="n5">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.small_entity">
-          <y:Geometry height="55.0" width="128.60000000000002" x="501.8193548387097" y="569.8870148525442"/>
+          <y:Geometry height="55.0" width="128.60000000000002" x="454.50807079201707" y="494.9014685578002"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="48.103515625" modelName="custom" textColor="#000000" visible="true" width="104.025390625" x="12.287304687499955" y="3.4482421875">Servicio externo
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="112.55078125" x="8.024609375000068" y="4.546875">Servicio externo
 de Sentiment
 Analyisis (SQPost)<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -129,10 +131,10 @@ Analyisis (SQPost)<y:LabelModel>
     <node id="n6">
       <data key="d6">
         <y:SVGNode>
-          <y:Geometry height="46.887996673583984" width="39.527000427246094" x="972.8056608630768" y="442.7419354838703"/>
+          <y:Geometry height="46.887996673583984" width="39.527000427246094" x="816.2278398514036" y="373.41845493931874"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="48.103515625" modelName="custom" textColor="#000000" visible="true" width="81.37890625" x="-20.925952911376953" y="50.887996673583984">Repositorio de
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="90.736328125" x="-25.604663848876953" y="50.887996673583984">Repositorio de
 resultados de
 SQPost<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -151,10 +153,10 @@ SQPost<y:LabelModel>
     <node id="n7">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.small_entity">
-          <y:Geometry height="55.0" width="99.0" x="-99.49158906013736" y="352.2419354838703"/>
+          <y:Geometry height="55.0" width="99.0" x="162.2014560060249" y="195.77952805321922"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="48.103515625" modelName="custom" textColor="#000000" visible="true" width="76.046875" x="11.4765625" y="3.4482421875">Proveedor de
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="84.0859375" x="7.45703125" y="4.546875">Proveedor de
 posts de
 Internet<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -173,10 +175,11 @@ Internet<y:LabelModel>
     <node id="n8">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.small_entity">
-          <y:Geometry height="51.0" width="125.0" x="683.4193548387098" y="442.7419354838703"/>
+          <y:Geometry height="51.0" width="104.72373540856029" x="643.9932847997993" y="369.3064516129027"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="33.40234375" modelName="custom" textColor="#000000" visible="true" width="119.3828125" x="2.80859375" y="8.798828125">Persistidor resultados
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="86.13671875" x="9.293508329280144" y="2.546875">Persistidor de
+resultados de
 SQPost<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
@@ -243,7 +246,7 @@ SQPost<y:LabelModel>
     <edge id="e5" source="n1" target="n3">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:Path sx="37.5164428266599" sy="-28.18385214007776" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="crows_foot_many"/>
           <y:BendStyle smoothed="false"/>
@@ -253,7 +256,7 @@ SQPost<y:LabelModel>
     <edge id="e6" source="n1" target="n2">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:Path sx="36.389983682691025" sy="30.449730136814537" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="crows_foot_many"/>
           <y:BendStyle smoothed="false"/>

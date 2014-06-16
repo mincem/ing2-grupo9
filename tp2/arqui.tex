@@ -72,6 +72,18 @@ Si es un pedido de popularidad, se envía al obtenedor de posts locales de popul
 Con respecto a la caché del rating, se actualizará constantemente según los programas que esté al aire. La actualización de la caché no depende de los pedidos de rating que se realicen. Es esperable que los pedidos de rating siempre puedan encontrarse en la caché, siempre que esta esté disponible.
 La caché de popularidad, en cambio, se actualizará a medida que se realicen pedidos con algún método que priorice las búsquedas más frecuentes. No podemos pretender que los resultados de las búsquedas estén siempre en caché debido a que hay un gran número de consultas posibles, por lo tanto será habitual que para este tipo de pedidos se acceda a las redes sociales. 
 
+\subsection{Subsistema de Sentiment Analyisis}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{graph/subsistemaSentimentAnalysis.pdf}
+%\caption{Post Filterer}
+\end{figure}
+
+El componente de Sentiment Analysis se utiliza para asignarle un sentimiento a cada post que se almacena en el sistema. Cuando un proveedor de posts, vinculado a una determinada red social, obtiene mensajes de dicho sitio y los ingresa al sistema en el formato de post, hace una llamada al Sentiment Analyisis para que los califique. El calificador recibe y organiza los posts, y se conecta con el selector de algoritmo para realizar la calificación propiamente dicha. El selector intenta comunicarse con el servicio externo, que se considera como el más confiable en cuanto a precisión de resultados pero no en disponibilidad. Si recibe una respuesta del servicio, devuelve los sentimientos obtenidos, mientras el persistidor se encarga de almacenarlos en el repositorio para futuros análisis. Si no la recibe, intenta con el algoritmo interno del sistema.
+
+Cuando tiene una respuesta proveniente de alguno de los algoritmos, el calificador convierte los posts obtenidos en posts calificados, y los devuelve para que el proveedor de posts pueda responder la consulta que le habían realizado.
+
 
 \subsection{Aplicación de Sentiment Analyisis por imágenes}
 
