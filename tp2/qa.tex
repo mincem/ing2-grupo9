@@ -43,6 +43,127 @@
 
   \begin{enumerate}
 
+% 1- DISPONIBILIDAD
+
+\QA
+  {Disponibilidad} % tipo de atributo
+  {Es fundamental garantizar que todos los nodos estarán siempre listos para procesar información a todo momento.} % texto del atributo
+  {Interna del sistema} % fuente
+  {Un nodo no responde a las consultas de los usuarios} % estímulo
+  {Sistema} % artefacto
+  {Operación normal} % entorno
+  {Se reporta la falla y se solicita una reparación del nodo inhabilitado} % respuesta
+  {El nodo vuelve a estar activo en el transcurso de una hora} % medida de la respuesta
+
+\QA
+  {Disponibilidad} % tipo de atributo
+  {El sistema siempre debe estar disponible, aunque uno de los nodos no esté funcionando correctamente.} % texto del atributo
+  {Externa} % fuente
+  {No hay respuesta del nodo más cercano} % estímulo
+  {Canal de comunicación} % artefacto
+  {Normal} % entorno
+  {Se pide información al nodo replicador} % respuesta
+  {Se obtiene respuesta con demora menor que el doble del tiempo de respuesta normal} % medida de la respuesta
+
+\QA
+  {Disponibilidad} % tipo de atributo
+  {La comunicación con el sistema de análisis de sentimiento SQPost suele fallar. Siempre que sea posible, se utilizará SQPost. En caso contrario, el sistema debe seguir respondiendo, y realizar el análisis con el sistema propio.} % texto del atributo
+  {Interna del sistema} % fuente
+  {Se recibe un timeout} % estímulo
+  {Componente de SQPost} % artefacto
+  {Normal} % entorno
+  {Cambiar a modo de emergencia con análisis de sentimiento propio} % respuesta
+  {El sistema no tarda más de 1 seg. en cambiar a modo de emergencia y continuar operando, desde que se descubrió la falla} % medida de la respuesta
+
+
+% 2- PERFORMANCE
+
+\QA
+  {Performance} % tipo de atributo
+  {Comportamiento esperado en cuanto procesamiento de imágenes obtenidas por la cámara del SmartTv} % texto del atributo
+  {Externa} % fuente
+  {El SmartTv sacá fotografías que serán tenidas en cuenta para mejorar el análisis del rating} % estímulo
+  {Sistema de procesamiento de imágenes} % artefacto
+  {Normal} % entorno
+  {Se delega el procesamiento necesario al Hardware del SmartTv permitiendo una mayor descentralización y capacidad de computo} % respuesta
+  {El sistema logra procesar para un determinado televidente una foto cada diez segundos} % medida de la respuesta
+
+\QA
+  {Performance} % tipo de atributo
+  {El procesamiento de información deberá tardar menos de un segundo} % texto del atributo
+  {Externa} % fuente
+  {El cliente hace un pedido de Rating o Popularidad} % estímulo
+  {Sistema} % artefacto
+  {Normal} % entorno
+  {El sistema procesa el pedido y entrega una respuesta} % respuesta
+  {El 90\% de las veces el pedido es entregado en tiempo y forma} % medida de la respuesta
+
+\QA
+  {Performance} % tipo de atributo
+  {El sistema deberá responder efectivamente a 100 pedidos por segundo} % texto del atributo
+  {Externa} % fuente
+  {Varios clientes hacen pedidos en una ventana de 1 segundo} % estímulo
+  {Sistema} % artefacto
+  {Normal} % entorno
+  {El sistema atiende los primeros pedidos de forma normal y pasa a modo sobrecargado, donde no responde ciertos pedidos hasta que se normalice la situación} % respuesta
+  {El sistema responde 100 pedidos por segundo de forma normal} % medida de la respuesta
+
+\QA
+  {Performance} % tipo de atributo
+  {El sistema responderá a un pedido de rating sin tener que acceder a redes sociales} % texto del atributo
+  {Externa} % fuente
+  {Un clientes hace un pedido de rating para un programa} % estímulo
+  {Sistema} % artefacto
+  {Normal} % entorno
+  {El sistema responde al pedido con información ya almacenada sin tener que hacer ningún pedido a redes sociales} % respuesta
+  {El sistema responde al pedido al menos 10 veces más rápido que si debiera acceder a las redes sociales para responderlo} % medida de la respuesta
+
+
+% 3- SEGURIDAD
+
+\QA
+  {Seguridad (Confidencialidad)} % tipo de atributo
+  {La información que se transmite desde o hacia los nodos debe ser segura.} % texto del atributo
+  {Atacante externo} % fuente
+  {Captura un mensaje con información enviada desde o hacia un nodo, e intenta acceder a los datos confidenciales} % estímulo
+  {Datos del sistema} % artefacto
+  {Operación normal online} % entorno
+  {El atacante no puede decodificar los datos} % respuesta
+  {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
+
+\QA
+  {Seguridad (Integridad)} % tipo de atributo
+  {La información que se transmite desde o hacia los nodos no debe poder alterarse desde afuera.} % texto del atributo
+  {Atacante externo} % fuente
+  {Captura un mensaje con información enviada entre nodos, lo altera y lo reenvía} % estímulo
+  {Datos del sistema} % artefacto
+  {Operación normal online} % entorno
+  {El nodo descarta el mensaje adulterado y pide al emisor que se lo reenvíe} % respuesta
+  {En el 98\% de los casos se puede identificar correctamente si un mensaje ha sido adulterado} % medida de la respuesta
+
+\QA
+  {Seguridad (Confidencialidad)} % tipo de atributo
+  {La información almacenada dentro de los nodos debe ser segura} % texto del atributo
+  {Atacante externo} % fuente
+  {Logra acceder a alguno de los repositorios de un nodo que contiene datos confidenciales} % estímulo
+  {Uno de los respositorios de un nodo} % artefacto
+  {Operación normal} % entorno
+  {El atacante no puede decodificar los datos} % respuesta
+  {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
+
+\QA
+  {Seguridad (Auditabilidad)} % tipo de atributo
+  {Almacenar los resultados de SQPost para poder mejorarlo.} % texto del atributo
+  {Usuario común} % fuente
+  {Pide el rating o la popularidad de un programa} % estímulo
+  {Sistema} % artefacto
+  {Operación normal online} % entorno
+  {Se almacenan los resultados de aplicar el algoritmo SQPost y la consulta que generó cada uno} % respuesta
+  {El 99,9\% de los resultados son almacenados} % medida de la respuesta
+
+
+% 4- MODIFICABILIDAD
+
 \QA
   {Modificabilidad} % tipo de atributo
   {El proyecto obtendrá datos de la actividad online de los usuarios, incluyendo varias redes sociales y comentarios en sitios de espectáculos. Se espera que periódicamente se agregue compatibilidad con nuevos sitios de Internet, sin perjudicar el uso de la aplicación.} % texto del atributo
@@ -64,16 +185,6 @@
   {Sólo se modifican los componentes correspondientes a los programas de TV} % medida de la respuesta
 
 \QA
-  {Disponibilidad} % tipo de atributo
-  {Es fundamental garantizar que todos los nodos estarán siempre listos para procesar información a todo momento.} % texto del atributo
-  {Interna del sistema} % fuente
-  {Un nodo no responde a las consultas de los usuarios} % estímulo
-  {Sistema} % artefacto
-  {Operación normal} % entorno
-  {Se reporta la falla y se solicita una reparación del nodo inhabilitado} % respuesta
-  {El nodo vuelve a estar activo en el transcurso de una hora} % medida de la respuesta
-
-\QA
   {Modificabilidad} % tipo de atributo
   {Las personas que mejoraron nuestro algoritmo de sentiment analysis quieren aprender y mejorar la performance del mismo de manera continua.} % texto del atributo
   {Equipo de desarrollo de Sentiment Analysis} % fuente
@@ -82,6 +193,9 @@
   {Tiempo de ejecución} % entorno
   {El software se intercambia de forma transparente al usuario y el producto sigue funcionando} % respuesta
   {El cambio se realiza en menos de 8 horas de trabajo y no se deben modificar otros elementos del sistema} % medida de la respuesta
+
+
+% 5 - USABILIDAD
 
 \QA
   {Usabilidad} % tipo de atributo
@@ -92,85 +206,7 @@
   {En tiempo de ejecución} % entorno
   {Se provee una interfaz de usuario fácil de entender y usar} % respuesta
   {El 90\% de los usuarios puede realizar la operación al usar por primera vez la aplicación, y demoran menos de 30 segundos} % medida de la respuesta
-
-\QA
-  {Disponibilidad} % tipo de atributo
-  {El sistema siempre debe estar disponible, aunque uno de los nodos no esté funcionando correctamente.} % texto del atributo
-  {Externa} % fuente
-  {No hay respuesta del nodo más cercano} % estímulo
-  {Canal de comunicación} % artefacto
-  {Normal} % entorno
-  {Se pide información al nodo replicador} % respuesta
-  {Se obtiene respuesta con demora menor que el doble del tiempo de respuesta normal} % medida de la respuesta
-
-\QA
-  {Seguridad (Confidencialidad)} % tipo de atributo
-  {Los nodos intercambiarán datos entre sí, y la información que se transmite entre los nodos debe ser segura y no poder alterarse desde afuera.} % texto del atributo
-  {Atacante externo} % fuente
-  {Captura un mensaje con información enviada entre nodos e intenta acceder a los datos confidenciales} % estímulo
-  {Datos del sistema} % artefacto
-  {Operación normal online} % entorno
-  {El atacante no puede decodificar los datos} % respuesta
-  {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
-
-\QA
-  {Disponibilidad} % tipo de atributo
-  {La comunicación con el sistema de análisis de sentimiento SQPost suele fallar. Siempre que sea posible, se utilizará SQPost. En caso contrario, el sistema debe seguir respondiendo, y realizar el análisis con el sistema propio.} % texto del atributo
-  {Interna del sistema} % fuente
-  {Se recibe un timeout} % estímulo
-  {Componente de SQPost} % artefacto
-  {Normal} % entorno
-  {Cambiar a modo de emergencia con análisis de sentimiento propio} % respuesta
-  {El sistema no tarda más de 1 seg. en cambiar a modo de emergencia y continuar operando, desde que se descubrió la falla} % medida de la respuesta
-
-  {Seguridad (Confidencialidad)} % tipo de atributo
-  {La información almacenada dentro de los nodos debe ser segura} % texto del atributo
-  {Atacante externo} % fuente
-  {Logra acceder a alguno de los repositorios de un nodo que contiene datos confidenciales} % estímulo
-  {Uno de los respositorios de un nodo} % artefacto
-  {Operación normal} % entorno
-  {El atacante no puede decodificar los datos} % respuesta
-  {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
   
-\QA
-  {Seguridad (Confidencialidad)} % tipo de atributo
-  {La información almacenada dentro de los SmartTV debe ser segura} % texto del atributo
-  {Atacante externo} % fuente
-  {Logra acceder a los datos confidenciales que almacena un SmartTV} % estímulo
-  {Datos de SmartTV} % artefacto
-  {Operación normal} % entorno
-  {El atacante no puede decodificar los datos confidenciales} % respuesta
-  {En el 99,9\% de los casos el atacante necesitaría más de 10 años para decodificar los datos} % medida de la respuesta
-
-\QA
-  {Performance} % tipo de atributo
-  {Comportamiento esperado en cuanto procesamiento de imágenes obtenidas por la cámara del SmartTv} % texto del atributo
-  {Externa} % fuente
-  {El SmartTv sacá fotografías que serán tenidas en cuenta para mejorar el análisis del rating} % estímulo
-  {Sistema de procesamiento de imágenes} % artefacto
-  {Normal} % entorno
-  {Se delega el procesamiento necesario al Hardware del SmartTv permitiendo una mayor descentralización y capacidad de computo} % respuesta
-  {El sistema logra procesar para un determinado televidente una foto cada diez segundos} % medida de la respuesta
-
-\QA
-  {Performance} % tipo de atributo
-  {El procesamiento de información deberá tardar menos de un segundo} % texto del atributo
-  {Externa} % fuente
-  {El cliente hace un pedido de Rating o Popularidad} % estímulo
-  {Sistema} % artefacto
-  {Normal} % entorno
-  {El sistema procesa el pedido y entrega una respuesta} % respuesta
-  {El 90 porciento de las veces el pedido es entregado en tiempo y forma} % medida de la respuesta
-
-\QA
-  {Performance} % tipo de atributo
-  {El sistema responda efectivamente a 100? pedidos por segundo} % texto del atributo
-  {Externa} % fuente
-  {Varios clientes hacen pedidos en una ventana de 1 segundo} % estímulo
-  {Sistema} % artefacto
-  {Normal} % entorno
-  {El sistema atiende los primeros pedidos de forma normal y pasa a modo sobrecargado, donde no responde ciertos pedidos hasta que se normalice la situación} % respuesta
-  {El sistema responde 100 pedidos por segundo de forma normal} % medida de la respuesta
 
 \end{enumerate}
 
