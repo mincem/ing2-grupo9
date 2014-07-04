@@ -17,29 +17,51 @@ class ShowWindow(tk.Toplevel):
         self.title(title)
         titleLabel = tk.Label(self, text=show.getName(),font=("",25), pady=25)
         titleLabel.pack()
-        ratingDateLabel = tk.Label(self, text="Fecha de Rating (Formato DD/MM/AAAA)")
+        bigFrame = tk.Frame(self)
+        bigFrame.pack()
+        decision = tk.IntVar()
+        self.createDateInputField(bigFrame,show,decision)
+        self.createOptionsWindow(bigFrame,show,decision)
+
+        
+    def createDateInputField(self,parent,show,decision):
+        frame = tk.Frame(parent)
+        ratingDateLabel = tk.Label(frame, text="Fecha de Rating (Formato DD/MM/AAAA)")
         ratingDateLabel.pack()
-        ratingDate = tk.Entry(self, bd=2)
+        ratingDate = tk.Entry(frame, bd=2)
         ratingDate.insert(0,"29/04/2014")
         ratingDate.pack()
-        ratingButton = tk.Button(self, text="VER RATING",
-                                 command=lambda: self.createRatingWindow(show,ratingDate.get()))
+        ratingButton = tk.Button(frame, text="VER RATING",
+                                 command=lambda: self.createRatingWindow(show,ratingDate.get(),decision))
         ratingButton.pack(side=tk.TOP)
-        popularityStartDateLabel = tk.Label(self, text="Popularidad desde (Formato DD/MM/AAAA)")
+        popularityStartDateLabel = tk.Label(frame, text="Popularidad desde (Formato DD/MM/AAAA)")
         popularityStartDateLabel.pack()
-        popularityStartDate = tk.Entry(self, bd=2)
+        popularityStartDate = tk.Entry(frame, bd=2)
         popularityStartDate.insert(0,"20/04/2014")
         popularityStartDate.pack()
-        popularityEndDateLabel = tk.Label(self, text="Hasta (Formato DD/MM/AAAA)")
+        popularityEndDateLabel = tk.Label(frame, text="Hasta (Formato DD/MM/AAAA)")
         popularityEndDateLabel.pack()
-        popularityEndDate = tk.Entry(self, bd=2)
+        popularityEndDate = tk.Entry(frame, bd=2)
         popularityEndDate.insert(0,"29/04/2014")
         popularityEndDate.pack()
-        popularityButton = tk.Button(self, text="VER POPULARIDAD",
-                                     command=lambda: self.createPopularityWindow(show,popularityStartDate.get(),popularityEndDate.get()))
+        popularityButton = tk.Button(frame, text="VER POPULARIDAD",
+                                     command=lambda: self.createPopularityWindow(show,popularityStartDate.get(),popularityEndDate.get(),decision))
         popularityButton.pack(side=tk.BOTTOM)
+        frame.grid(row=0, column=0, sticky="nsew", padx=20, pady=2)
 
-    def createRatingWindow(self, show, ratingDate):
+    def createOptionsWindow(self,parent,show,decision):
+        frame = tk.Frame(parent)
+        frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=2)
+        optionsLabel = tk.Label(frame, text= "CONFIGURACIÓN",font=("",14), pady=10)
+        optionsLabel.pack()
+        hardcodeButton = tk.Radiobutton(frame, text="Modo offline (default)", variable=decision, value=1)
+        hardcodeButton.pack()
+        onlineButton = tk.Radiobutton(frame, text="Modo online", variable=decision, value=2)
+        onlineButton.pack()
+        hardcodeButton.select()
+        
+
+    def createRatingWindow(self, show, ratingDate,decision):
         if self.validateFormat(ratingDate):
             askedDate = datetime.datetime.strptime(ratingDate, '%d/%m/%Y').date()
             if self.validateAiringDay(askedDate, show):
@@ -49,7 +71,7 @@ class ShowWindow(tk.Toplevel):
                 ratingMeter.measure()
                 window = RatingWindow(self,show, askedDate, askedDate, ratingMeter, aMeasureView)
 
-    def createPopularityWindow(self, show, popularityStartDate,popularityEndDate): 
+    def createPopularityWindow(self, show, popularityStartDate,popularityEndDate,decision): 
         if self.twoDateValidations(popularityStartDate,popularityEndDate):
             startDate = datetime.datetime.strptime(popularityStartDate, '%d/%m/%Y').date()
             endDate = datetime.datetime.strptime(popularityEndDate, '%d/%m/%Y').date()
