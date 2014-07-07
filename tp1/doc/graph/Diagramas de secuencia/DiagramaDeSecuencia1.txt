@@ -1,0 +1,23 @@
+title Pedido de measure() a RatingMeter
+
+aSubject->+aRatingMeter: measure()
+note left of aSubject: Alguien pide el rating
+
+aRatingMeter->+PostProvider: PostProvider()
+PostProvider-->-aRatingMeter: aPostProvider
+
+aRatingMeter->+aPostProvider: qualifiedPostsDuringAirtime(aTVShow,aDate)
+aPostProvider->+aPostProvider: postsFromDuringAirtime(aTVShow,aDate)
+aPostProvider->+TweetToPostFilterer: TweetToPostFilterer(initialDate,finalDate,aTvShow)
+TweetToPostFilterer-->-aPostProvider: aTweetToPostFilterer
+aPostProvider->+aTweetToPostFilterer:posts()
+aTweetToPostFilterer-->-aPostProvider: aList<Post>
+aPostProvider-->-aPostProvider:aList<Post>
+
+aPostProvider->+WordListSentimentClassifier: new()
+WordListSentimentClassifier-->-aPostProvider: aWordListSentimentClassifier
+
+
+aPostProvider-->-aRatingMeter: aList<QualifiedPost>
+
+aRatingMeter-->-aSubject:
