@@ -9,6 +9,11 @@
 *.backup
 *.tex~
 *.kilepr
+informe.pdf
+
+## Python
+__pycache__/
+*.py[cod]
 
 ## Intermediate documents:
 *.dvi
