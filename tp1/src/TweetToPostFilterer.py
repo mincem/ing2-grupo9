@@ -22,12 +22,10 @@ class TweetToPostFilterer(BasicPostFilterer):
         tweets = twitterAdapter.fetchTweets(self._initialDate,
                                             self._finalDate,
                                             self._tvShow.getKeywords())
-        # Los tweets van a venir del adapter en Json y con eso tengo que crear los post
-        print(self._decision)
-        for result in tweets:
-            print(result)
-            for tweet in result['statuses']:
-                posts.append(self.JsonToPost(tweet))
+#        Los tweets van a venir del adapter en Json y con eso tengo que crear los post
+#        for result in tweets:
+        for tweet in tweets['statuses']:
+            posts.append(self.JsonToPost(tweet))
 
         return posts
 
