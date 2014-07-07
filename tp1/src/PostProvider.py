@@ -11,7 +11,7 @@ class PostProvider:
         self._decision = decision
 
     def postsFromPeriod(self, tvShow, initialDate, finalDate):
-        filterer = TweetToPostFilterer(initialDate, finalDate, tvShow, self.decision)
+        filterer = TweetToPostFilterer(initialDate, finalDate, tvShow, self._decision)
         return filterer.getPosts()
 
     def postsFromDuringAirtime(self, tvShow, aDate):
