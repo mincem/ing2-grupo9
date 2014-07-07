@@ -4,16 +4,6 @@
 
 % Diagramas, explicación, etc. M.I.
 
-\subsection{Post}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{graph/clase/show.pdf}
-\caption{Post}
-\end{figure}
-
-El \emph{post} es el elemento básico de esta aplicación, y consiste en un mensaje enviado a través de una red social. En principio es la representación de los datos de un \emph{tweet} que son útiles en nuestro programa, y también puede representar estos mismos datos, obtenidos de una red social distinta de \emph{Twitter}. Contiene algunos datos básicos como autor, texto del mensaje y fecha/hora de envío. También tiene un indicador de la ciudad desde la que se mandó el mensaje, en caso de que el autor haya activado la localización por GPS y de esa forma se pueda identificar su procedencia. Este indicador resulta útil para la vista de popularidad en mapa. Cada post también está vinculado con un único show de TV, el cual se le asigna basándose en palabras claves contenidas en el mensaje. Por último, posee un indicador de sentimiento, que lo clasifica como positivo, negativo o neutro.
-
 \subsection{Post Filterer}
 
 \begin{figure}[H]
@@ -31,6 +21,9 @@ El \emph{post} es el elemento básico de esta aplicación, y consiste en un mens
 \end{figure}
 
 Este es un módulo de \emph{Sentiment Analyisis}, que consiste de un clasificador que asigna un valor a cada post y es llamado luego de recibir los datos de la red social e integrarlos al modelo de la aplicación. Existen tres valores para el sentimiento: positivo, negativo y neutro, y la manera de clasificar los posts es transparente al resto de las funcionalidades. En esta primera versión del programa, se usa un clasificador simple que lee de un corpus de palabras puntuadas como positivas o negativas, y realiza la clasificación según la cantidad de palabras de cada tipo que aparecen en cada mensaje. Se espera que a futuro se diseñe un nuevo clasificador con un criterio más complejo, y cuando esté implementado, se sustituya el que existe actualmente.
+
+
+El \emph{post} es el elemento básico de esta aplicación, y consiste en un mensaje enviado a través de una red social. En principio es la representación de los datos de un \emph{tweet} que son útiles en nuestro programa, y también puede representar estos mismos datos, obtenidos de una red social distinta de \emph{Twitter}. Contiene algunos datos básicos como autor, texto del mensaje y fecha/hora de envío. También tiene un indicador de la ciudad desde la que se mandó el mensaje, en caso de que el autor haya activado la localización por GPS y de esa forma se pueda identificar su procedencia. Este indicador resulta útil para la vista de popularidad en mapa. Cada post también está vinculado con un único show de TV, el cual se le asigna basándose en palabras claves contenidas en el mensaje. Por último, posee un indicador de sentimiento, que lo clasifica como positivo, negativo o neutro.
 
 
 \subsection{Meters \& Views}
