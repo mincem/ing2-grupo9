@@ -6,13 +6,18 @@ import time
 
 class TweetToPostFilterer(BasicPostFilterer):
 
-    def __init__(self, initialDate, finalDate, tvShow):
+    def __init__(self, initialDate, finalDate, tvShow, decision):
         self._initialDate = initialDate
         self._finalDate = finalDate
         self._tvShow = tvShow
+        self._decision = decision
 
     def getPosts(self):
-        twitterAdapter = TwitterAdapter()
+        if (self._decision == 1 ):
+            twitterAdapter = TwitterAdapter()
+        else:
+            twitterAdapter = HardcodedTwitter()
+
         posts = []
         tweets = twitterAdapter.fetchTweets(self._initialDate,
                                             self._finalDate,

@@ -7,18 +7,18 @@ import datetime
 
 class PostProvider:
 
-    def __init__(self):
-        pass
+    def __init__(self, decision):
+        self._decision = decision
 
     def postsFromPeriod(self, tvShow, initialDate, finalDate):
-        filterer = TweetToPostFilterer(initialDate, finalDate, tvShow)
+        filterer = TweetToPostFilterer(initialDate, finalDate, tvShow, self.decision)
         return filterer.getPosts()
 
     def postsFromDuringAirtime(self, tvShow, aDate):
         """ Para filtrar los de un solo día se llama con ese mismo día
             como comienzo y como final """
         untilDate = aDate + datetime.timedelta(days=1)
-        basicFilterer = TweetToPostFilterer(aDate, untilDate, tvShow)
+        basicFilterer = TweetToPostFilterer(aDate, untilDate, tvShow, self._decision)
         startTime = basicFilterer.getTVShow().getStartTime()
         endTime = basicFilterer.getTVShow().getEndTime()
         timeFilterer = ByTimePostFilterer(basicFilterer, startTime, endTime)

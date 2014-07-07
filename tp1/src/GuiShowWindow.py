@@ -65,7 +65,7 @@ class ShowWindow(tk.Toplevel):
         if self.validateFormat(ratingDate):
             askedDate = datetime.datetime.strptime(ratingDate, '%d/%m/%Y').date()
             if self.validateAiringDay(askedDate, show):
-                ratingMeter = RatingMeter(show, askedDate)
+                ratingMeter = RatingMeter(show, askedDate, desicion)
                 aMeasureView = MeasureView()
                 ratingMeter.subscribe(aMeasureView)
                 ratingMeter.measure()
@@ -75,7 +75,7 @@ class ShowWindow(tk.Toplevel):
         if self.twoDateValidations(popularityStartDate,popularityEndDate):
             startDate = datetime.datetime.strptime(popularityStartDate, '%d/%m/%Y').date()
             endDate = datetime.datetime.strptime(popularityEndDate, '%d/%m/%Y').date()
-            popularityMeter = PopularityMeter(show, startDate, endDate)
+            popularityMeter = PopularityMeter(show, startDate, endDate, decision)
             aMeasureView = MeasureView()
             popularityMeter.subscribe(aMeasureView)
             popularityMeter.measure()

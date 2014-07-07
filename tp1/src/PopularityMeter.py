@@ -3,9 +3,10 @@ from PostProvider import *
 
 class PopularityMeter(Meter):
     """Class to calculate the popularity"""
-    def __init__(self, tvShow, initialDate, finalDate):
+    def __init__(self, tvShow, initialDate, finalDate, decision):
         self._initialDate = initialDate
         self._finalDate = finalDate
+        self._decision = decision
         super(PopularityMeter, self).__init__(tvShow)
         
     def getInitialDate(self):
@@ -17,7 +18,7 @@ class PopularityMeter(Meter):
     def measure(self):
         """ mirar como está hecho en RatingMeter y modificarlo """
         if self._qPosts == []:
-            aPostProvider = PostProvider()
+            aPostProvider = PostProvider(self._decision)
             self._qPosts = aPostProvider.qualifiedPostsFromPeriod(self._tvShow, 
                                                                   self._initialDate,
                                                                   self._finalDate)
