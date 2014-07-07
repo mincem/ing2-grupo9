@@ -1,0 +1,17 @@
+title Pedido de qualifiedPostsDuringAirtime(aTVShow,aDate) a PostProvider
+
+aSubject->+aPostProvider: qualifiedPostsDuringAirtime(aTVShow,aDate)
+aPostProvider->+aPostProvider: postsFromDuringAirtime(aTVShow,aDate)
+aPostProvider->+TweetToPostFilterer: TweetToPostFilterer(initialDate,finalDate,aTvShow)
+TweetToPostFilterer-->-aPostProvider: aTweetToPostFilterer
+aPostProvider->+aTweetToPostFilterer:getPosts()
+aTweetToPostFilterer-->-aPostProvider: aListOfPost
+aPostProvider-->-aPostProvider:aListOfPost
+
+loop for aPost in aListOfPost
+    aPostProvider->mySentimentClassifier: classify(aPost.getContent())
+    mySentimentClassifier-->aPostProvider: aSentiment
+end
+
+
+aPostProvider-->-aSubject: aListOfQualifiedPost
