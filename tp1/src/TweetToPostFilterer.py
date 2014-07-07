@@ -13,7 +13,7 @@ class TweetToPostFilterer(BasicPostFilterer):
         self._decision = decision
 
     def getPosts(self):
-        if (self._decision == 1 ):
+        if (self._decision == True ):
             twitterAdapter = TwitterAdapter()
         else:
             twitterAdapter = HardcodedTwitter()
@@ -23,7 +23,9 @@ class TweetToPostFilterer(BasicPostFilterer):
                                             self._finalDate,
                                             self._tvShow.getKeywords())
         # Los tweets van a venir del adapter en Json y con eso tengo que crear los post
+        print(self._decision)
         for result in tweets:
+            print(result)
             for tweet in result['statuses']:
                 posts.append(self.JsonToPost(tweet))
 

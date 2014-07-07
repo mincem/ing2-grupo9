@@ -32,7 +32,7 @@ class ShowWindow(tk.Toplevel):
         ratingDate.insert(0,"29/04/2014")
         ratingDate.pack()
         ratingButton = tk.Button(frame, text="VER RATING",
-                                 command=lambda: self.createRatingWindow(show,ratingDate.get(),decision))
+                                 command=lambda: self.createRatingWindow(show,ratingDate.get(),self.goOnline(decision)))
         ratingButton.pack(side=tk.TOP)
         popularityStartDateLabel = tk.Label(frame, text="Popularidad desde (Formato DD/MM/AAAA)")
         popularityStartDateLabel.pack()
@@ -45,7 +45,7 @@ class ShowWindow(tk.Toplevel):
         popularityEndDate.insert(0,"29/04/2014")
         popularityEndDate.pack()
         popularityButton = tk.Button(frame, text="VER POPULARIDAD",
-                                     command=lambda: self.createPopularityWindow(show,popularityStartDate.get(),popularityEndDate.get(),decision))
+                                     command=lambda: self.createPopularityWindow(show,popularityStartDate.get(),popularityEndDate.get(),self.goOnline(decision)))
         popularityButton.pack(side=tk.BOTTOM)
         frame.grid(row=0, column=0, sticky="nsew", padx=20, pady=2)
 
@@ -61,25 +61,30 @@ class ShowWindow(tk.Toplevel):
         hardcodeButton.select()
         
 
-    def createRatingWindow(self, show, ratingDate,decision):
+    def createRatingWindow(self, show, ratingDate,goOnline):
         if self.validateFormat(ratingDate):
             askedDate = datetime.datetime.strptime(ratingDate, '%d/%m/%Y').date()
             if self.validateAiringDay(askedDate, show):
-                ratingMeter = RatingMeter(show, askedDate, desicion)
+                ratingMeter = RatingMeter(show, askedDate, goOnline)
                 aMeasureView = MeasureView()
                 ratingMeter.subscribe(aMeasureView)
                 ratingMeter.measure()
                 window = RatingWindow(self,show, askedDate, askedDate, ratingMeter, aMeasureView)
 
-    def createPopularityWindow(self, show, popularityStartDate,popularityEndDate,decision): 
+    def createPopularityWindow(self, show, popularityStartDate,popularityEndDate,goOnline): 
         if self.twoDateValidations(popularityStartDate,popularityEndDate):
             startDate = datetime.datetime.strptime(popularityStartDate, '%d/%m/%Y').date()
             endDate = datetime.datetime.strptime(popularityEndDate, '%d/%m/%Y').date()
-            popularityMeter = PopularityMeter(show, startDate, endDate, decision)
+            popularityMeter = PopularityMeter(show, startDate, endDate, goOnline)
             aMeasureView = MeasureView()
             popularityMeter.subscribe(aMeasureView)
             popularityMeter.measure()
             window = PopularityWindow(self,show, startDate, endDate, popularityMeter, aMeasureView)
+
+    def goOnline(self, decision):
+        return decision.get() == 2
+    # Si la variable tiene valor 2, usamos modo online; si no, modo offline
+            
 
     def validateAiringDay(self,askedDate, show):
         for day in show.getAiringDays():
