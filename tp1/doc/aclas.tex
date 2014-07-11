@@ -1,3 +1,10 @@
-%\section{Aclaraciones} 
+\section{Aclaraciones} 
+
+\subsection{Demo}
+
+\begin{itemize}
+ \item La API actual de Twitter no provee una función para obtener el número total de tweets que responden a una determinada consulta; por ej, ``hashtag = \#Bailando2014, fecha = 10/3/14''. Por otro lado, la función que devuelve los tweets completos para una consulta del mismo estilo tiene un límite en la cantidad de tweets que permite descargar, por lo que tampoco se puede usar para hacer un conteo del número total. Estas limitaciones hacen que las respuestas que nuestro programa puede dar sean mucho menos útiles que podrían hacerse en teoría.
+ \item La API no devuelve tweets de cualquier fecha, en particular solo responde consultas de la última semana, aproximadamente. Por esto, toda consulta que hacemos sobre una fecha anterior al límite puesto por Twitter nos devuelve un valor de 0.
+\end{itemize}
 
 % Por si hace falta aclarar algo. Seguro algo va a haber. - M.I.
