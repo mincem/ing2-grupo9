@@ -4,6 +4,9 @@
 
 % Diagramas, explicación, etc. M.I.
 
+La aplicación tiene la funcionalidad de recolectar publicaciones escritas en redes sociales que se refieren a un determinado programa de televisión, filtrar los datos relevantes, y usarlos para realizar mediciones sobre el programa en cuestión. 
+Por otra parte, los mensajes son clasificados como positivos, negativos o neutrales por el módulo de Sentiment Analyisis.
+
 \subsection{Meters \& Views}
 
 \begin{figure}[H]
@@ -14,9 +17,9 @@
 
 Existen dos maneras de realizar mediciones en la aplicación: el rating y la popularidad. El rating consiste en una medición de la cantidad de posts recibidos para un programa en determinada fecha, durante el horario de emisión del programa, con un peso asignado según el sentimiento del mensaje. El rating puede consultarse ``en vivo'' para la fecha actual, mientras un programa se está emitiendo, y en ese caso se actualizará cada 10 segundos la información obtenida. La popularidad es una medición de la cantidad de posts de un programa, dado un intervalo de tiempo, en cualquier horario, también pesados según sentimiento.
 
-En la aplicación hay varias formas de visualizar esta información: la funcionalidad básica es la de mostrar un número que represente la medición de rating o popularidad (que aparece nombrada como MeasureView). Se puede pedir que el resultado se muestre en un gráfico. También hay una funcionalidad para poder leer los mensajes concretos que la aplicación obtuvo y usó para sus cálculos. Estos mensajes se muestran con autor, contenido y fecha, y se los puede filtrar de acuerdo a su sentimiento, en caso de que el usuario quiera ver u ocultar algún tipo de contenido. Por último está la opción de ver los posts en un mapa, donde se los clasifica por área geográfica y se muestra el valor de la medición para cada zona urbana principal.
+En la aplicación hay varias formas de visualizar esta información: la funcionalidad básica es la de mostrar un número que represente la medición de rating o popularidad (que aparece nombrada como MeasureView). Se puede pedir que el resultado se muestre en un gráfico (ver PlotView). También hay una funcionalidad para poder leer los mensajes concretos que la aplicación obtuvo y usó para sus cálculos (PostsView). Estos mensajes se muestran con autor, contenido y fecha, y se los puede filtrar de acuerdo a su sentimiento, en caso de que el usuario quiera ver u ocultar algún tipo de contenido. Por último está la opción de ver los posts en un mapa, donde se los clasifica por área geográfica y se muestra el valor de la medición para cada zona urbana principal (MapView).
 
-Cada una de estas vistas es independiente de las demás y trabaja con información que puede obtener del medidor que le corresponde. Esto permite que se puedan agregar o modificar los tipos de vista existentes sin un gran impacto en el resto de la aplicación, y además hace que no sea necesario mantener activas las vistas que el usuario no solicitó.
+Cada una de estas vistas es independiente de las demás y trabaja con información que puede obtener del medidor que le corresponde. Esto permite que se puedan agregar o modificar los tipos de vista existentes sin un gran impacto en el resto de la aplicación, y además hace que no sea necesario mantener activas las vistas que el usuario no solicitó. Para lograr esto usamos el patrón de diseño \textit{Observer}, que nos permite desacoplar los objetos que conocen la información (los Meters) de los que reciben dicha información y la usan para generar una visualización particular (los Views).
 
 \subsection{Sentiment Analyisis}
 

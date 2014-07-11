@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import tkinter as tk
-import datetime
+from datetime import datetime, timedelta
 import calendar
 import time
 from PopularityMeter import *
@@ -29,7 +29,7 @@ class ShowWindow(tk.Toplevel):
         ratingDateLabel = tk.Label(frame, text="Fecha de Rating (Formato DD/MM/AAAA)")
         ratingDateLabel.pack()
         ratingDate = tk.Entry(frame, bd=2)
-        ratingDate.insert(0,"29/04/2014")
+        ratingDate.insert(0,datetime.date.today().strftime("%d/%m/%Y"))
         ratingDate.pack()
         ratingButton = tk.Button(frame, text="VER RATING",
                                  command=lambda: self.createRatingWindow(show,ratingDate.get(),self.goOnline(decision)))
@@ -37,12 +37,13 @@ class ShowWindow(tk.Toplevel):
         popularityStartDateLabel = tk.Label(frame, text="Popularidad desde (Formato DD/MM/AAAA)")
         popularityStartDateLabel.pack()
         popularityStartDate = tk.Entry(frame, bd=2)
-        popularityStartDate.insert(0,"20/04/2014")
+        yesterday = datetime.date.today() - timedelta(days=1)
+        popularityStartDate.insert(0,yesterday.strftime("%d/%m/%Y"))
         popularityStartDate.pack()
         popularityEndDateLabel = tk.Label(frame, text="Hasta (Formato DD/MM/AAAA)")
         popularityEndDateLabel.pack()
         popularityEndDate = tk.Entry(frame, bd=2)
-        popularityEndDate.insert(0,"29/04/2014")
+        popularityEndDate.insert(0,datetime.date.today().strftime("%d/%m/%Y"))
         popularityEndDate.pack()
         popularityButton = tk.Button(frame, text="VER POPULARIDAD",
                                      command=lambda: self.createPopularityWindow(show,popularityStartDate.get(),popularityEndDate.get(),self.goOnline(decision)))
@@ -105,7 +106,7 @@ class ShowWindow(tk.Toplevel):
     def validatePast(self,dateText):
         isPast = datetime.datetime.strptime(dateText, '%d/%m/%Y').date() <= datetime.date.today()
         if not isPast:
-            error = ValueError("Future date") # esto parece herejia, pero a ver si anda
+            error = ValueError("Future date") 
             self.makeErrorBox(error)
         return isPast
 
@@ -114,7 +115,7 @@ class ShowWindow(tk.Toplevel):
         dateTwo = datetime.datetime.strptime(dateTextTwo, '%d/%m/%Y').date()
         isRange = dateOne <= dateTwo
         if not isRange:
-            error = ValueError("First date is after second") # esto parece herejia, pero a ver si anda
+            error = ValueError("First date is after second") 
             self.makeErrorBox(error)
         return isRange        
     
