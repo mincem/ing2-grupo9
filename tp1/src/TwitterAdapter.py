@@ -20,7 +20,6 @@ class TwitterAdapter:
 
         sinceDate = date.strftime("%Y-%m-%d")
 
-
         query = keyword + ' since:' + sinceDate
 
         try:
@@ -78,9 +77,11 @@ class TwitterAdapter:
             search_results = twitter.search(q=query, count=100)
         except TwythonError as e:
             print(e)
-
+            
         return search_results
 
+        # with open("bailandoTweets", "w") as myfile:
+        #     json.dump(search_results, myfile)
         # Esto era por si necesitabamos mas de 100 tweets.
         # tweets                          =   []
         # MAX_ATTEMPTS                    =   10
