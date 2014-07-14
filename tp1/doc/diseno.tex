@@ -52,7 +52,7 @@ El módulo de \emph{Sentiment Analyisis} consiste de un clasificador que asigna 
 
 El PostFilterer es un módulo que puede obtener, a partir de las redes sociales, un conjunto de posts, y es llamado por módulos que se encargan de reunir y operar con ellos. El \emph{Filterer} concreto básico es aquel que puede conseguir posts desde una red social determinada. Por ejemplo, el TweetToPostFilterer es el filtro que convierte tweets (mensajes de Twitter) en posts. Hay uno equivalente para mensajes de Facebook, y así sucesivamente con cada red social soportada por el sistema.
 
-Cada Filterer concreto está subclasificado de la abstracción BasicPostFilterer; esta decisión de diseño permite que todos respondan al mismo mensaje getPosts(). Al ser polimórficos respecto de este mensaje, se los puede tratar indistintamente, y el objeto que los llama no necesita actuar de diferente forma dependiendo del origen de los posts. De esta forma puede llamar a cualquiera de ellos, o a todos los que tiene. Además permite que se agreguen nuevos Filterers para redes sociales distintas, sin afectar el funcionamiento del resto del sistema.
+Cada Filterer concreto está subclasificado de la abstracción BasicPostFilterer; esta decisión de diseño permite que todos respondan al mismo mensaje \texttt{getPosts()}. Al ser polimórficos respecto de este mensaje, se los puede tratar indistintamente, y el objeto que los llama no necesita actuar de diferente forma dependiendo del origen de los posts. De esta forma puede llamar a cualquiera de ellos, o a todos los que tiene. Además permite que se agreguen nuevos Filterers para redes sociales distintas, sin afectar el funcionamiento del resto del sistema.
 \medskip
 
 Por otra parte, en algunos casos es necesario que los filtros obtengan un conjunto de posts restringido a ciertas condiciones (de ahí su nombre de ``filtros''). Por esto diseñamos el Filterer de acuerdo al patrón Decorator. El filtro ``sin decoración'' toma como parámetros las fechas de inicio y fin de la búsqueda, y el show de TV al que se refiere. Estos atributos son obligatorios para todas las búsquedas, ya que no existen pedidos en nuestro sistema que no los usen. Por otro lado hay restricciones que pueden o no necesitarse según el tipo de pedido. Por ejemplo, la búsqueda por hora (para el horario de emisión en las búsquedas de rating), o por ciudad (para la visualización de mapas). En esos casos se crea un filtro con las decoraciones que necesite. El filtro decorado es polimórfico con el básico, y se los puede usar indistintamente después de haberlos creado.
@@ -72,7 +72,7 @@ La interfaz de usuario es el elemento que coordina y da inicio al nivel más alt
 \caption{Post Provider}
 \end{figure}
 
-Aquí podemos observar como el sistema resuelve un pedido de rating para un determinado programa, cuales son los objetos que participan y cuales son creados. En concreto, llega un mensaje que tendrá como respuesta una lista de post calificados, por lo cual habrá que hacer lo siguiente: obtener la lista un lista de tweets para el programa en la hora de emisión (en el diagrama la comunicación con twitter no se muestra explicitamente), convertirlos a Post y darles un sentimiento.
+Aquí podemos observar cómo el sistema resuelve un pedido de rating para un determinado programa, cuáles son los objetos que participan y cuáles son creados. En concreto, llega un mensaje que tendrá como respuesta una lista de posts calificados, o QPosts, por lo cual habrá que hacer lo siguiente: obtener la lista un lista de tweets para el programa en la hora de emisión (en el diagrama la comunicación con Twitter no se muestra explicitamente), convertirlos a Post, clasificarlos según sentimiento, y crear QPosts usando la información del post y la del sentimiento.
 
 \begin{figure}[H]
 \centering
@@ -88,7 +88,7 @@ Aquí podemos observar como el sistema resuelve un pedido de rating para un dete
 \caption{Rating}
 \end{figure}
 
-Este diagrama representa el cálculo de la medición de rating. En está instancia, un objeto de RatingMeter ya ha sido creado, al igual que sus observadores quienes ya están subscriptos a alguno de sus eventos. Cuando es recibido el mensaje $measure()$ sea crea un Post Provider quien obtendrá los posts calificados. Luego se notificará a los observadores quienes, dependiendo de su funcionamiento, convertirán estos datos para ser utilizados por diferentes vistas.
+Este diagrama representa el cálculo de la medición de rating. En está instancia, un objeto de RatingMeter ya ha sido creado, al igual que sus observadores, que ya están suscriptos a alguno de sus eventos. Cuando es recibido el mensaje \texttt{measure()}, se crea un Post Provider, el cual obtendrá los posts calificados. Luego se notificará a los observadores, y estos convertirán estos datos, de distintas formas dependiendo de su funcionamiento, para ser utilizados por diferentes vistas.
 
 \begin{figure}[H]
 \centering
