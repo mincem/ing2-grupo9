@@ -1,4 +1,3 @@
- 
 
 \section{Diseño de la aplicación}
 
@@ -43,8 +42,6 @@ El PostProvider es un objeto cuya función es la de obtener los posts necesarios
 El módulo de \emph{Sentiment Analyisis} consiste de un clasificador que asigna un valor a cada post y es llamado luego de recibir los datos de la red social e integrarlos al modelo de la aplicación. Existen tres valores para el sentimiento: positivo, negativo y neutro, y la manera de clasificar los posts es transparente al resto de las funcionalidades. En esta primera versión del programa, se usa un clasificador simple que lee de un corpus de palabras puntuadas como positivas o negativas, y realiza la clasificación según la cantidad de palabras de cada tipo que aparecen en cada mensaje. Se espera que a futuro se diseñe un nuevo clasificador con un criterio más complejo, y cuando esté implementado, se sustituya el que existe actualmente.
 
 
-
-
 \subsection{Post Filterer}
 
 \begin{figure}[H]
@@ -58,3 +55,23 @@ El módulo de \emph{Sentiment Analyisis} consiste de un clasificador que asigna 
 \subsection{Interfaz de usuario}
 
 La interfaz de usuario es el elemento que coordina y da inicio al nivel más alto de la aplicación. Su responsabilidad es permitir que el usuario active las funcionalidades que desea usar, y eso lleve a crear los objetos necesarios. Cada vez que el usuario seleccione un programa de TV de la lista, y pida ver el rating o la popularidad de dicho programa para un intervalo, se creará un medidor correspondiente a los datos recibidos. De forma similar, cada vez que se seleccione una nueva manera de visualizar los datos, la interfaz pedirá la creación de una vista vinculada al medidor, para que muestre la información.
+
+\subsection{Diagramas de secuencia y Objetos}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/diagramas_secuencia/PostProvider.png}
+\caption{Post Provider}
+\end{figure}
+
+Aquí podemos observar como el sistema resuelve un pedido de rating para un determinado programa, cuales son los objetos que participan y cuales son creados. En concreto, llega un mensaje que tendrá como respuesta una lista de post calificados, por lo cual habrá que hacer lo siguiente: obtener la lista un lista de tweets para el programa en la hora de emisión (en el diagrama la comunicación con twitter no se muestra explicitamente), convertirlos a Post y darles un sentimiento.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/diagramas_secuencia/Rating.png}
+\caption{Rating}
+\end{figure}
+
+Este diagrama representa el cálculo de la medición de rating. En está instancia, un objeto de RatingMeter ya ha sido creado, al igual que sus observadores quienes ya están subscriptos a alguno de sus eventos. Cuando es recibido el mensaje $measure()$ sea crea un Post Provider quien obtendrá los posts calificados. Luego se notificará a los observadores quienes, dependiendo de su funcionamiento, convertirán estos datos para ser utilizados por diferentes vistas.
+
