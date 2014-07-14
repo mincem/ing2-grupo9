@@ -66,12 +66,24 @@ La interfaz de usuario es el elemento que coordina y da inicio al nivel más alt
 
 Aquí podemos observar como el sistema resuelve un pedido de rating para un determinado programa, cuales son los objetos que participan y cuales son creados. En concreto, llega un mensaje que tendrá como respuesta una lista de post calificados, por lo cual habrá que hacer lo siguiente: obtener la lista un lista de tweets para el programa en la hora de emisión (en el diagrama la comunicación con twitter no se muestra explicitamente), convertirlos a Post y darles un sentimiento.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/objetos/PostProvider.pdf}
+\caption{Post Provider (Objetos)}
+\end{figure}
+
+
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{graph/diagramas_secuencia/Rating.png}
+\includegraphics[scale=0.6]{graph/diagramas_secuencia/Rating.png}
 \caption{Rating}
 \end{figure}
 
 Este diagrama representa el cálculo de la medición de rating. En está instancia, un objeto de RatingMeter ya ha sido creado, al igual que sus observadores quienes ya están subscriptos a alguno de sus eventos. Cuando es recibido el mensaje $measure()$ sea crea un Post Provider quien obtendrá los posts calificados. Luego se notificará a los observadores quienes, dependiendo de su funcionamiento, convertirán estos datos para ser utilizados por diferentes vistas.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{graph/objetos/Rating.pdf}
+\caption{Rating (Objetos)}
+\end{figure}
