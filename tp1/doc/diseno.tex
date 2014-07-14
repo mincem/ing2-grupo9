@@ -50,7 +50,15 @@ El módulo de \emph{Sentiment Analyisis} consiste de un clasificador que asigna 
 \caption{Post Filterer}
 \end{figure}
 
+El PostFilterer es un módulo que puede obtener, a partir de las redes sociales, un conjunto de posts, y es llamado por módulos que se encargan de reunir y operar con ellos. El \emph{Filterer} concreto básico es aquel que puede conseguir posts desde una red social determinada. Por ejemplo, el TweetToPostFilterer es el filtro que convierte tweets (mensajes de Twitter) en posts. Hay uno equivalente para mensajes de Facebook, y así sucesivamente con cada red social soportada por el sistema.
 
+Cada Filterer concreto está subclasificado de la abstracción BasicPostFilterer; esta decisión de diseño permite que todos respondan al mismo mensaje getPosts(). Al ser polimórficos respecto de este mensaje, se los puede tratar indistintamente, y el objeto que los llama no necesita actuar de diferente forma dependiendo del origen de los posts. De esta forma puede llamar a cualquiera de ellos, o a todos los que tiene. Además permite que se agreguen nuevos Filterers para redes sociales distintas, sin afectar el funcionamiento del resto del sistema.
+\medskip
+
+Por otra parte, en algunos casos es necesario que los filtros obtengan un conjunto de posts restringido a ciertas condiciones (de ahí su nombre de ``filtros''). Por esto diseñamos el Filterer de acuerdo al patrón Decorator. El filtro ``sin decoración'' toma como parámetros las fechas de inicio y fin de la búsqueda, y el show de TV al que se refiere. Estos atributos son obligatorios para todas las búsquedas, ya que no existen pedidos en nuestro sistema que no los usen. Por otro lado hay restricciones que pueden o no necesitarse según el tipo de pedido. Por ejemplo, la búsqueda por hora (para el horario de emisión en las búsquedas de rating), o por ciudad (para la visualización de mapas). En esos casos se crea un filtro con las decoraciones que necesite. El filtro decorado es polimórfico con el básico, y se los puede usar indistintamente después de haberlos creado.
+\medskip
+
+Los Filterers se comunican con los Adapters; cada uno de ellos es un objeto que puede hablar directamente con la interfaz provista por una determinada red social para obtener los mensajes. El Adapter obtiene los mensajes en el formato de la red social, y el Filterer filtra los que son útiles para devolverlos en el formato Post, común al sistema.
 
 \subsection{Interfaz de usuario}
 
