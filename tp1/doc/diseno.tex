@@ -60,9 +60,19 @@ Por otra parte, en algunos casos es necesario que los filtros obtengan un conjun
 
 Los Filterers se comunican con los Adapters; cada uno de ellos es un objeto que puede hablar directamente con la interfaz provista por una determinada red social para obtener los mensajes. El Adapter obtiene los mensajes en el formato de la red social, y el Filterer filtra los que son útiles para devolverlos en el formato Post, común al sistema.
 
-\subsection{Interfaz de usuario}
+\subsection{Request Manager}
 
-La interfaz de usuario es el elemento que coordina y da inicio al nivel más alto de la aplicación. Su responsabilidad es permitir que el usuario active las funcionalidades que desea usar, y eso lleve a crear los objetos necesarios. Cada vez que el usuario seleccione un programa de TV de la lista, y pida ver el rating o la popularidad de dicho programa para un intervalo, se creará un medidor correspondiente a los datos recibidos. De forma similar, cada vez que se seleccione una nueva manera de visualizar los datos, la interfaz pedirá la creación de una vista vinculada al medidor, para que muestre la información.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/clase/request.pdf}
+\caption{Request Manager}
+\end{figure}
+
+El RequestManager es un módulo encargado de administrar los pedidos que realiza un usuario, y funciona como un intermediario entre el funcionamiento interno del sistema y la interfaz de usuario. Puede recibir un pedido completo de rating o popularidad, y crear los objetos necesarios para resolver el pedido, que son los medidores y vistas.
+
+%\subsection{Interfaz de usuario}
+
+%La interfaz de usuario es el elemento que coordina y da inicio al nivel más alto de la aplicación. Su responsabilidad es permitir que el usuario active las funcionalidades que desea usar, y eso lleve a crear los objetos necesarios. Cada vez que el usuario seleccione un programa de TV de la lista, y pida ver el rating o la popularidad de dicho programa para un intervalo, se creará un medidor correspondiente a los datos recibidos. De forma similar, cada vez que se seleccione una nueva manera de visualizar los datos, la interfaz pedirá la creación de una vista vinculada al medidor, para que muestre la información.
 
 \subsection{Diagramas de secuencia y Objetos}
 
