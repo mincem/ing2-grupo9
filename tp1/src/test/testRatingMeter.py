@@ -16,7 +16,7 @@ class TestRatingMeter(unittest.TestCase):
     def setUp(self):
         self.aDate = datetime.datetime.strptime("10/5/2014",
                                                 '%d/%m/%Y').date()
-        self.rm = RatingMeter(BailandoTVShow(), self.aDate)
+        self.rm = RatingMeter(BailandoTVShow(), self.aDate, 0)
 
     def test_create(self):
         self.assertNotEqual(self.rm, None)

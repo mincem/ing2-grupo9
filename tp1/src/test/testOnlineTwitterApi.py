@@ -4,7 +4,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
 from TVShow import *
-from Twitter import *
+from TwitterAdapter import *
 from Post import *
 
 import unittest
@@ -14,10 +14,10 @@ import datetime
 class TestOnlineTwitterApi(unittest.TestCase):
     def test_search_tweets(self):
         seis78 = Seis78TVShow()
-        t = Twitter()
+        t = TwitterAdapter()
+        date = datetime.datetime(2014, 7, 14, 21, 30, 00)
         print (seis78.getKeywords()[0])
-        tweets = t.searchFrom(seis78.getKeywords()[0], '2014-5-10'
-                              )
+        tweets = t.searchFrom(seis78.getKeywords()[0], date)
 
         for tweet in tweets['statuses']:
             print ('Tweet from @%s Date: %s' %

@@ -85,6 +85,16 @@ En la versión final de la aplicación debe existir la funcionalidad para actual
 
 %La interfaz de usuario es el elemento que coordina y da inicio al nivel más alto de la aplicación. Su responsabilidad es permitir que el usuario active las funcionalidades que desea usar, y eso lleve a crear los objetos necesarios. Cada vez que el usuario seleccione un programa de TV de la lista, y pida ver el rating o la popularidad de dicho programa para un intervalo, se creará un medidor correspondiente a los datos recibidos. De forma similar, cada vez que se seleccione una nueva manera de visualizar los datos, la interfaz pedirá la creación de una vista vinculada al medidor, para que muestre la información.
 
+\subsection{Utilización de la API de Google Maps.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{graph/clase/map.pdf}
+\caption{Google Maps}
+\end{figure}
+
+Un caso particular se presenta cuando se quiere mostrar el resultado del rating de un programa de televisión, en un mapa, discriminando según ciudad. Para lograrlo las instancias de la clase MapView, tienen la responsabilidad de conocer a una instancia de GoogleMapAdapter, que realizará la comunicación con Google Maps, pasarle la información que necesita para que genere el mapa de acuerdo al request y, finalmente, ponerlo a disposición para que la interfaz grafica lo despliegue.  
+
 \subsection{Diagramas de secuencia y Objetos}
 
 \begin{figure}[H]

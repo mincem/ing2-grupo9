@@ -4,7 +4,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
 from TVShow import *
-from Twitter import *
+from TwitterAdapter import *
 from Post import *
 
 import unittest

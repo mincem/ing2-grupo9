@@ -18,7 +18,8 @@ class TestPopularityMeter(unittest.TestCase):
         self.finalDate = datetime.datetime.strptime("11/5/2014", '%d/%m/%Y').date()
         self.pm = PopularityMeter(Seis78TVShow(),
                              self.initialDate,
-                             self.finalDate)
+                             self.finalDate,
+                                  0)
 
     def test_create(self):
         self.assertNotEqual(self.pm, None)
@@ -52,7 +53,9 @@ class TestPopularityMeter(unittest.TestCase):
         
         print("Medicion de Popularidad:")
         print(mv.getMeasure().getValue())
-
+        
+        self.assertEqual(len(pv.getPosts()), 0)
+        pv.setSentimentFilter(['Neutro'])
         self.assertNotEqual(len(pv.getPosts()), 0)
 
 

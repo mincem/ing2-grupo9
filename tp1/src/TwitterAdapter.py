@@ -80,36 +80,6 @@ class TwitterAdapter:
             
         return search_results
 
-        # with open("bailandoTweets", "w") as myfile:
-        #     json.dump(search_results, myfile)
-        # Esto era por si necesitabamos mas de 100 tweets.
-        # tweets                          =   []
-        # MAX_ATTEMPTS                    =   10
-        # COUNT_OF_TWEETS_TO_BE_FETCHED   =   2000
-        # t = 0
-
-        # for i in range(0,MAX_ATTEMPTS):
-        #     if(COUNT_OF_TWEETS_TO_BE_FETCHED < t):
-        #         break
-
-        #     if (0 == i):
-        #         results = twitter.search(q=query, count=100)
-        #     else:
-        #         # After the first call we should have max_id from result of previous call. Pass it in query.
-        #         results = twitter.search(q=query, include_entities='true',max_id=next_max_id,count=100)
-
-        #     t = t + len(results['statuses'])
-        #     tweets.append(results)
-
-        #     try:
-        #         # Parse the data returned to get max_id to be passed in consequent call.
-        #         next_results_url_params = results['search_metadata']['next_results']
-        #         next_max_id = next_results_url_params.split('max_id=')[1].split('&')[0]
-        #     except:
-        #         # No more next pages
-        #         break
-        #return tweets
-
 class HardcodedTwitter(TwitterAdapter):
     def __init__(self):
         super(HardcodedTwitter, self).__init__()
