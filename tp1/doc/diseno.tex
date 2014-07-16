@@ -5,7 +5,7 @@
 
 La aplicación tiene la funcionalidad de recolectar publicaciones escritas en redes sociales que se refieren a un determinado programa de televisión, filtrar los datos relevantes, y usarlos para realizar mediciones sobre el programa en cuestión. 
 Por otra parte, los mensajes son clasificados como positivos, negativos o neutrales por el módulo de Sentiment Analyisis.
-\medskip
+\bigskip
 
 El diagrama de clases de esta aplicación está separado en varios gráficos para una mejor visualización. Para mostrar las relaciones entre clases que están en distintos gráficos, usamos como notación una ``caja'' particular para una de las clases en el gráfico donde aparece la otra, y señalamos la relación.
 
@@ -18,10 +18,10 @@ El diagrama de clases de esta aplicación está separado en varios gráficos par
 \end{figure}
 
 Existen dos maneras de realizar mediciones en la aplicación: el rating y la popularidad. El rating consiste en una medición de la cantidad de posts recibidos para un programa en determinada fecha, durante el horario de emisión del programa, con un peso asignado según el sentimiento del mensaje. El rating puede consultarse ``en vivo'' para la fecha actual, mientras un programa se está emitiendo, y en ese caso se actualizará cada 10 segundos la información obtenida. La popularidad es una medición de la cantidad de posts de un programa, dado un intervalo de tiempo, en cualquier horario, también pesados según sentimiento.
-\medskip
+\bigskip
 
 En la aplicación hay varias formas de visualizar esta información: la funcionalidad básica es la de mostrar un número que represente la medición de rating o popularidad (que aparece nombrada como MeasureView). Se puede pedir que el resultado se muestre en un gráfico (ver PlotView). También hay una funcionalidad para poder leer los mensajes concretos que la aplicación obtuvo y usó para sus cálculos (PostsView). Estos mensajes se muestran con autor, contenido y fecha, y se los puede filtrar de acuerdo a su sentimiento, en caso de que el usuario quiera ver u ocultar algún tipo de contenido. Por último está la opción de ver los posts en un mapa, donde se los clasifica por área geográfica y se muestra el valor de la medición para cada zona urbana principal (MapView).
-\medskip
+\bigskip
 
 Cada una de estas vistas es independiente de las demás y trabaja con información que puede obtener del medidor que le corresponde. Esto permite que se puedan agregar o modificar los tipos de vista existentes sin un gran impacto en el resto de la aplicación, y además hace que no sea necesario mantener activas las vistas que el usuario no solicitó. Para lograr esto usamos el patrón de diseño \textit{Observer}, que nos permite desacoplar los objetos que conocen la información (los Meters) de los que reciben dicha información y la usan para generar una visualización particular (los Views).
 
@@ -34,10 +34,10 @@ Cada una de estas vistas es independiente de las demás y trabaja con informaci�
 \end{figure}
 
 El \emph{post} es el elemento básico de esta aplicación, y consiste en un mensaje enviado a través de una red social. En principio es la representación de los datos de un \emph{tweet} que son útiles en nuestro programa, y también puede representar estos mismos datos, obtenidos de una red social distinta de \emph{Twitter}. Contiene algunos datos básicos como autor, texto del mensaje y fecha/hora de envío. También tiene un indicador de la ciudad desde la que se mandó el mensaje, en caso de que el autor haya activado la localización por GPS y de esa forma se pueda identificar su procedencia. Este indicador resulta útil para la vista de popularidad en mapa. Cada post también está vinculado con un único show de TV, el cual se le asigna basándose en palabras claves (generalmente \emph{hashtags}) contenidas en el mensaje. Por último, posee un indicador de sentimiento, que lo clasifica como positivo, negativo o neutro.
-\medskip
+\bigskip
 
 El PostProvider es un objeto cuya función es la de obtener los posts necesarios para responder una consulta de rating o popularidad, y es invocado por los respectivos Meters para que consiga los posts específicos que se necesitan.
-\medskip
+\bigskip
 
 El módulo de \emph{Sentiment Analyisis} consiste de un clasificador que asigna un valor a cada post y es llamado luego de recibir los datos de la red social e integrarlos al modelo de la aplicación. Existen tres valores para el sentimiento: positivo, negativo y neutro, y la manera de clasificar los posts es transparente al resto de las funcionalidades. En esta primera versión del programa, se usa un clasificador simple que lee de un corpus de palabras puntuadas como positivas o negativas, y realiza la clasificación según la cantidad de palabras de cada tipo que aparecen en cada mensaje. Se espera que a futuro se diseñe un nuevo clasificador con un criterio más complejo, y cuando esté implementado, se sustituya el que existe actualmente.
 
@@ -53,10 +53,10 @@ El módulo de \emph{Sentiment Analyisis} consiste de un clasificador que asigna 
 El PostFilterer es un módulo que puede obtener, a partir de las redes sociales, un conjunto de posts, y es llamado por módulos que se encargan de reunir y operar con ellos. El \emph{Filterer} concreto básico es aquel que puede conseguir posts desde una red social determinada. Por ejemplo, el TweetToPostFilterer es el filtro que convierte tweets (mensajes de Twitter) en posts. Hay uno equivalente para mensajes de Facebook, y así sucesivamente con cada red social soportada por el sistema.
 
 Cada Filterer concreto está subclasificado de la abstracción BasicPostFilterer; esta decisión de diseño permite que todos respondan al mismo mensaje \texttt{getPosts()}. Al ser polimórficos respecto de este mensaje, se los puede tratar indistintamente, y el objeto que los llama no necesita actuar de diferente forma dependiendo del origen de los posts. De esta forma puede llamar a cualquiera de ellos, o a todos los que tiene. Además permite que se agreguen nuevos Filterers para redes sociales distintas, sin afectar el funcionamiento del resto del sistema.
-\medskip
+\bigskip
 
 Por otra parte, en algunos casos es necesario que los filtros obtengan un conjunto de posts restringido a ciertas condiciones (de ahí su nombre de ``filtros''). Por esto diseñamos el Filterer de acuerdo al patrón Decorator. El filtro ``sin decoración'' toma como parámetros las fechas de inicio y fin de la búsqueda, y el show de TV al que se refiere. Estos atributos son obligatorios para todas las búsquedas, ya que no existen pedidos en nuestro sistema que no los usen. Por otro lado hay restricciones que pueden o no necesitarse según el tipo de pedido. Por ejemplo, la búsqueda por hora (para el horario de emisión en las búsquedas de rating), o por ciudad (para la visualización de mapas). En esos casos se crea un filtro con las decoraciones que necesite. El filtro decorado es polimórfico con el básico, y se los puede usar indistintamente después de haberlos creado.
-\medskip
+\bigskip
 
 Los Filterers se comunican con los Adapters; cada uno de ellos es un objeto que puede hablar directamente con la interfaz provista por una determinada red social para obtener los mensajes. El Adapter obtiene los mensajes en el formato de la red social, y el Filterer filtra los que son útiles para devolverlos en el formato Post, común al sistema.
 
@@ -70,7 +70,18 @@ Los Filterers se comunican con los Adapters; cada uno de ellos es un objeto que 
 
 El RequestManager es un módulo encargado de administrar los pedidos que realiza un usuario, y funciona como un intermediario entre el funcionamiento interno del sistema y la interfaz de usuario. Puede recibir un pedido completo de rating o popularidad, y crear los objetos necesarios para resolver el pedido, que son los medidores y vistas.
 
-%\subsection{Interfaz de usuario}
+El sistema contiene una lista de shows de TV que son elegibles para consultar su rating o popularidad. Cada show tiene un nombre, información sobre los horarios y días de emisión, y un conjunto de palabras claves que se usan para reconocer que un mensaje de red social está hablando de él. Por ejemplo, ``\#Bailando2014'' es una palabra clave relacionada con ShowMatch, y consideramos que un tweet que usa ese hashtag está hablando de este programa. El RequestManager puede devolver la lista de los shows que está en el sistema, para que la interfaz pueda pedirlos y mostrárselos al usuario, de modo que este seleccione uno y haga un pedido.
+\bigskip
+
+Además, el RequestManager puede ``mejorar'' un pedido al agregarle una vista. Para esto recibe un pedido como parámetro y devuelve otro pedido al que se le puede pedir la información de la vista. Los objetos Request (pedidos) están modelados usando un patrón Observer, de manera que pueden crearse pedidos básicos, que solo tienen la vista de medición para mostrar los valores, pero también pedidos con extras. Los extras son vistas que agregan información. A diferencia del anterior uso de un patrón Observer en este trabajo, este ejemplo no tiene objetos que responden exactamente a los mismos mensajes: los pedidos decorados responden otros mensajes relevantes a la información extra, por lo que hay que operar de manera distinta con cada uno de ellos.
+
+Cada Request está relacionado con un  Meter y algunos Views; durante la creación y decorado de los Requests se realiza la suscripción de los Views al Meter, según el modelo de observadores antes visto.
+% Y me dirán que esto de que los requests suscriban observers son responsabilidades turbias, pero qué sé yo, ya no sé qué más objetos inventar para que hagan estas cosas... -- M.I.
+\bigskip
+
+En la versión final de la aplicación debe existir la funcionalidad para actualizar periódicamente las mediciones hechas en tiempo real, por lo que el módulo Request permite que se le envíe una orden de actualizar sus datos.
+
+%\subsection{Interfaz de usuario} % Reemplazada por el Request Manager -- M.I.
 
 %La interfaz de usuario es el elemento que coordina y da inicio al nivel más alto de la aplicación. Su responsabilidad es permitir que el usuario active las funcionalidades que desea usar, y eso lleve a crear los objetos necesarios. Cada vez que el usuario seleccione un programa de TV de la lista, y pida ver el rating o la popularidad de dicho programa para un intervalo, se creará un medidor correspondiente a los datos recibidos. De forma similar, cada vez que se seleccione una nueva manera de visualizar los datos, la interfaz pedirá la creación de una vista vinculada al medidor, para que muestre la información.
 
