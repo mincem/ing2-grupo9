@@ -1,0 +1,17 @@
+title Pedido de measure() a RatingMeter
+
+aSubject->+aRatingMeter: measure()
+note left of aSubject: Alguien pide el rating
+
+aRatingMeter->+PostProvider: PostProvider()
+PostProvider-->-aRatingMeter: aPostProvider
+
+aRatingMeter->+aPostProvider: qualifiedPostsDuringAirtime(aTVShow,aDate)
+
+aPostProvider-->-aRatingMeter: aListOfQualifiedPosts
+
+aRatingMeter->aPostsView: update(aListOfQualifiedPosts)
+aPostsView-->aRatingMeter:
+
+aRatingMeter-->-aSubject:
+
