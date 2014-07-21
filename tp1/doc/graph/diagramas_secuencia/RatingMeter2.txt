@@ -10,8 +10,8 @@ aRatingMeter->+aPostProvider: qualifiedPostsDuringAirtime(aTVShow,aDate)
 
 aPostProvider-->-aRatingMeter: aListOfQualifiedPosts
 
-aRatingMeter->aPostsView: update(aListOfQualifiedPosts)
-aPostsView-->aRatingMeter:
+aRatingMeter->+aPostsView: update(aListOfQualifiedPosts)
+aPostsView-->-aRatingMeter:
 
 aRatingMeter-->-aSubject:
 
